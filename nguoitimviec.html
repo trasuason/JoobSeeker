@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hồ sơ công ty - JoObs</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body {
+            background: #f9f9f9;
+        }
+
+        /* Header cam */
+        .header {
+            background: linear-gradient(135deg, #FF8C42, #F97316);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 36px;
+            margin-bottom: 8px;
+        }
+        .breadcrumb {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        .breadcrumb a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 40px;
+        }
+
+        /* Phần trái - Thông tin công ty */
+        .company-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+        .company-logo {
+            width: 120px;
+            height: 120px;
+            background: #FF8C42;
+            color: white;
+            font-size: 48px;
+            font-weight: bold;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .company-name {
+            font-size: 26px;
+            margin-bottom: 8px;
+        }
+        .company-tagline {
+            color: #666;
+            margin-bottom: 20px;
+        }
+        .follow-btn-follow {
+            background: #FF8C42;
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .company-stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 30px 0;
+            color: #444;
+        }
+        .stat h3 {
+            font-size: 28px;
+            color: #FF5733;
+        }
+        .company-desc {
+            text-align: left;
+            line-height: 1.7;
+            color: #555;
+            margin-top: 20px;
+        }
+        .vacancies-btn {
+            display: inline-block;
+            margin-top: 20px;
+            background: #fff;
+            color: #FF5733;
+            border: 2px solid #FF5733;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* Phần phải - Tin tuyển dụng + Form liên hệ */
+        .job-info-bar {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .job-title {
+            font-size: 24px;
+            font-weight: 700;
+        }
+        .job-tags span {
+            background: #fff4ee;
+            color: #FF5733;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 14px;
+            margin-left: 8px;
+        }
+
+        .contact-form-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+        .contact-form-card h3 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        input, textarea {
+            padding: 14px;
+            border: 1px solid #eee;
+            border-radius: 12px;
+            font-size: 15px;
+        }
+        textarea {
+            grid-column: span 3;
+            height: 120px;
+            resize: none;
+        }
+        .upload-area {
+            border: 2px dashed #ddd;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            color: #888;
+            margin-bottom: 20px;
+        }
+        .upload-area i {
+            font-size: 32px;
+            color: #FF8C42;
+            margin-bottom: 10px;
+        }
+        .file-list {
+            margin-top: 10px;
+            color: #FF5733;
+        }
+        .form-actions {
+            display: flex;
+            gap: 15px;
+        }
+        .btn-send {
+            background: linear-gradient(135deg, #FF8C42, #F97316);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .btn-cancel {
+            background: #f0f0f0;
+            color: #666;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 50px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 992px) {
+            .container { grid-template-columns: 1fr; }
+            .form-grid { grid-template-columns: 1fr 1fr; }
+            textarea { grid-column: span 2; }
+        }
+        @media (max-width: 600px) {
+            .form-grid { grid-template-columns: 1fr; }
+            textarea { grid-column: span 1; }
+            .job-info-bar { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header cam -->
+    <div class="header">
+        <h1>Ứng tuyển</h1>
+        <div class="breadcrumb">
+            <a href="#">Jobs</a> / <a href="#">Highspeed Studios</a> / UI Designer
+        </div>
+    </div>
+
+    <div class="container">
+
+        <!-- Trái: Thông tin công ty -->
+        <div class="company-card">
+            <div class="company-logo">HS</div>
+            <h2 class="company-name">Highspeed Studios</h2>
+            <p class="company-tagline">Creative Design Agency</p>
+            <button class="btn-follow">+ Follow</button>
+
+            <div class="company-stats">
+                <div class="stat">
+                    <h3>80 - 100</h3>
+                    <p>Nhân viên</p>
+                </div>
+                <div class="stat">
+                    <h3>4.5</h3>
+                    <p>Đánh giá</p>
+                </div>
+                <div class="stat">
+                    <p>London,<br>England</p>
+                </div>
+            </div>
+
+            <div class="company-desc">
+                Highspeed Studios là agency thiết kế sáng tạo chuyên sản xuất giao diện và trải nghiệm người dùng đỉnh cao cho các thương hiệu hàng đầu.
+            </div>
+
+            <a href="#" class="vacancies-btn">23 Vacancies</a>
+        </div>
+
+        <!-- Phải: Tin tuyển dụng + Form -->
+        <div>
+            <!-- Thanh thông tin job -->
+            <div class="job-info-bar">
+                <div class="job-title">Lead UI/UX Designer</div>
+                <div style="font-size: 18px; color: #FF5733; font-weight: 600;">
+                    $14,000 - $25,000
+                </div>
+                <div class="job-tags">
+                    <span>Full-time</span>
+                    <span>London, England</span>
+                </div>
+            </div>
+
+            <!-- Form liên hệ / ứng tuyển nhanh -->
+            <div class="contact-form-card">
+                <h3>Điền thông tin ứng tuyển</h3>
+
+                <div class="form-grid">
+                    <input type="text" placeholder="Họ" value="David">
+                    <input type="text" placeholder="Tên đệm">
+                    <input type="text" placeholder="Tên" value="Nguyễn Văn">
+                    <input type="date" placeholder="Ngày sinh">
+                    <input type="email" placeholder="Email" value="you@vd.com">
+                    <input type="tel" placeholder="Số điện thoại" value="0123...">
+                </div>
+
+                <textarea placeholder="Giới thiệu về bạn...">Viết vài dòng giới thiệu...</textarea>
+
+                <div class="upload-area">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>Upload Files<br><small>PDF, DOC, PPT, JPG, PNG</small></p>
+                    <div class="file-list">Contact_2020.pdf <span style="color:#ccc;">×</span></div>
+                </div>
+
+                <div class="form-actions">
+                    <button class="btn-send">Gửi hồ sơ</button>
+                    <button class="btn-cancel">Hủy</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Đăng nhập người tìm việc — JoQbs</title>
+    <link rel="stylesheet" href="assets/style.css" />
+  </head>
+  <body>
+    <div class="page-bg"></div>
+    <main class="center-wrap">
+      <div class="register-card">
+        <div class="left-panel">
+          <div class="left-inner">
+            <div class="brand">JoQbs</div>
+            <h2>
+              Chào mừng trở lại
+              <span class="line">Tiếp tục hành trình nghề nghiệp</span>
+            </h2>
+            <p class="lead">
+              Đăng nhập để quản lý hồ sơ, nhận thông báo việc làm và ứng tuyển
+              nhanh chóng.
+            </p>
+            <img
+              class="hero-img"
+              src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=900&auto=format&fit=crop&ixlib=rb-4.0.3&s=6c8f6a2b4b8f1b3c2d4f5e6a7b8c9d0e"
+              alt="illustration"
+            />
+          </div>
+        </div>
+
+        <div class="right-form">
+          <div class="form-inner">
+            <h3>Đăng nhập</h3>
+            <p class="muted small">
+              Đăng nhập bằng email hoặc các tài khoản mạng xã hội
+            </p>
+
+            <form action="#" onsubmit="event.preventDefault();">
+              <div class="row">
+                <input type="email" placeholder="Email" required />
+              </div>
+              <div class="row">
+                <input type="password" placeholder="Mật khẩu" required />
+              </div>
+
+              <label class="checkbox"
+                ><input type="checkbox" /> Ghi nhớ đăng nhập</label
+              >
+
+              <div class="actions">
+                <button class="btn primary">Đăng nhập</button>
+              </div>
+
+              <p class="muted"><a href="./quenmatkhaur.html">Quên mật khẩu?</a></p>
+
+              <div class="divider"><span>Hoặc</span></div>
+
+              <div class="socials">
+                <button class="social google">Đăng nhập bằng Google</button>
+                <button class="social fb">Đăng nhập bằng Facebook</button>
+              </div>
+
+              <p class="muted center">
+                Chưa có tài khoản?
+                <a href="dangky_ungvien.html">Tạo tài khoản</a>
+              </p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <div class="modal-backdrop" id="errorModal">
+      <div class="modal-content">
+        <div
+          class="modal-icon"
+          style="background: linear-gradient(90deg, #ff7a59, #ff9a6f)"
+        >
+          ⚠
+        </div>
+        <h2>Đăng nhập thất bại</h2>
+        <p id="errorMessage">Email hoặc mật khẩu không chính xác.</p>
+        <button
+          class="btn primary"
+          onclick="document.getElementById('errorModal').classList.remove('show');"
+          style="margin-top: 16px"
+        >
+          Thử lại
+        </button>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const form = document.querySelector("form");
+        const errorModal = document.getElementById("errorModal");
+
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+
+          const email = form.querySelector('input[type="email"]').value;
+          const password = form.querySelector('input[type="password"]').value;
+
+          // Get stored user account (check regular user first, then admin)
+          let userAccount = localStorage.getItem("userAccount");
+          let adminAccount = localStorage.getItem("adminAccount");
+
+          try {
+            // Try regular user account first
+            if (userAccount) {
+              const userData = JSON.parse(userAccount);
+              if (userData.email === email && userData.password === password) {
+                // Login success - save logged-in user
+                localStorage.setItem("currentUser", JSON.stringify(userData));
+                // Redirect to admin page if admin account, otherwise main page
+                if (userData.email === "admin@jobseeker.com") {
+                  window.location.href = "admin.html";
+                } else {
+                  window.location.href = "trangchinh.html";
+                }
+                return;
+              }
+            }
+
+            // Try admin account
+            if (adminAccount) {
+              const adminData = JSON.parse(adminAccount);
+              if (
+                adminData.email === email &&
+                adminData.password === password
+              ) {
+                // Admin login success
+                localStorage.setItem("currentUser", JSON.stringify(adminData));
+                window.location.href = "admin.html";
+                return;
+              }
+            }
+
+            // No matching account found
+            showError("Email hoặc mật khẩu không chính xác.");
+          } catch (error) {
+            showError("Lỗi hệ thống. Vui lòng thử lại.");
+          }
+        });
+
+        function showError(message) {
+          document.getElementById("errorMessage").textContent = message;
+          errorModal.classList.add("show");
+        }
+      });
+    </script>
+  </body>
+</html>

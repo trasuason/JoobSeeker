@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>JoQbs — Tìm việc mơ ước của bạn</title>
+    <link rel="stylesheet" href="assets/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap">
+        <a class="logo" href="#">JobSeeker</a>
+        <nav class="nav">
+          <a href="#">Trang chủ</a>
+          <a href="#">Nhà tuyển dụng</a>
+          <a href="#">Ứng viên</a>
+        </nav>
+        <div class="auth">
+          <a class="link" href="#">Đăng nhập</a>
+          <a class="btn signup" href="dangky.html">Đăng ký</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="hero">
+      <div class="wrap hero-grid">
+        <section class="hero-left">
+          <h1 class="hero-title">
+            Tìm việc <span class="accent">mơ ước</span> của bạn
+          </h1>
+          <p class="hero-sub">
+            Tìm công việc mới ngay hôm nay! Tin tuyển dụng mới được cập nhật mỗi
+            ngày dành riêng cho bạn — duyệt và ứng tuyển ở bất cứ đâu.
+          </p>
+
+          <div class="trending">
+            Từ khóa việc làm thịnh hành:
+            <div class="tags">
+              <button class="tag">Thiết kế Web</button>
+              <button class="tag">Thiết kế UI/UX</button>
+              <button class="tag">Frontend</button>
+            </div>
+          </div>
+
+          <form class="search" role="search" onsubmit="event.preventDefault();">
+            <div class="input-group">
+              <input
+                type="search"
+                placeholder="Tiêu đề công việc hoặc từ khóa"
+                aria-label="job"
+              />
+              <input
+                type="text"
+                placeholder="Bandung, Indonesia"
+                aria-label="location"
+              />
+            </div>
+            <button class="btn primary">Tìm kiếm</button>
+          </form>
+        </section>
+
+        <aside class="hero-right">
+          <div class="illustration">
+            <img
+              src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=5b4d4b7c4c57f2a8f1c2f6b5f8d6a9e6"
+              alt="person with laptop"
+            />
+            <div class="card floating top">
+              <div class="icon">💼</div>
+              <div class="meta">
+                <strong>10.5K</strong>
+                <div class="small">Tin tuyển dụng</div>
+              </div>
+            </div>
+            <div class="card floating bottom">
+              <div class="icon">⚡</div>
+              <div class="meta">
+                <div class="small">Chỉ mất vài giây</div>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+      <svg class="waves" viewBox="0 0 1440 120" preserveAspectRatio="none">
+        <path
+          d="M0,40 C360,120 1080,0 1440,60 L1440 120 L0 120 Z"
+          fill="#fff"
+          opacity="0.08"
+        ></path>
+      </svg>
+    </main>
+
+    <section class="companies wrap">
+      <h3>
+        Gia nhập các <span class="accent">công ty</span> nổi tiếng trên toàn thế
+        giới
+      </h3>
+      <div class="logos">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/7/76/Slack_Icon.png"
+          alt="slack"
+        />
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg"
+          alt="microsoft"
+        />
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg"
+          alt="google"
+        />
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/6/69/Airbnb_Logo_Bélo.svg"
+          alt="airbnb"
+        />
+      </div>
+    </section>
+  </body>
+
+  <script>
+    // Initialize admin account nếu chưa tồn tại
+    (function () {
+      try {
+        var userAccount = localStorage.getItem("userAccount");
+        if (!userAccount || !userAccount.includes("admin@jobseeker.com")) {
+          // Admin account chưa tồn tại, tạo mới
+          var adminAccount = {
+            fullname: "Admin",
+            email: "admin@jobseeker.com",
+            password: "admin123",
+            phone: "0900000000",
+            isAdmin: true,
+          };
+          localStorage.setItem("adminAccount", JSON.stringify(adminAccount));
+          console.log(
+            "Admin account initialized: admin@jobseeker.com / admin123"
+          );
+        }
+      } catch (err) {
+        console.error("Admin initialization error:", err);
+      }
+    })();
+  </script>
+</html>

@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard - Joobseeker</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Inter", sans-serif;
+        background: #f1f5f9;
+        color: #1e293b;
+      }
+
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* Header */
+      header {
+        background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+        color: white;
+        padding: 1.5rem 0;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      }
+
+      .header-inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-family: "Poppins", sans-serif;
+        font-size: 32px;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: white;
+        text-decoration: none;
+      }
+
+      .logo i {
+        background: linear-gradient(135deg, #fbbf24, #f59e0b);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .admin-info {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .admin-user {
+        text-align: right;
+      }
+
+      .admin-user .name {
+        font-weight: 600;
+        font-size: 16px;
+      }
+
+      .admin-user .role {
+        font-size: 12px;
+        opacity: 0.8;
+      }
+
+      .btn-logout {
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: white;
+        padding: 10px 20px;
+        border-radius: 50px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: 0.3s;
+        text-decoration: none;
+        display: inline-block;
+      }
+
+      .btn-logout:hover {
+        background: rgba(255, 255, 255, 0.3);
+      }
+
+      /* Main Content */
+      .admin-content {
+        padding: 40px 0;
+      }
+
+      .page-title {
+        font-size: 36px;
+        font-weight: 800;
+        margin-bottom: 30px;
+        color: #1e293b;
+      }
+
+      /* Dashboard Grid */
+      .dashboard-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 24px;
+        margin-bottom: 40px;
+      }
+
+      .stat-card {
+        background: white;
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+        transition: all 0.4s;
+        border: 1px solid #e2e8f0;
+      }
+
+      .stat-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 50px rgba(99, 102, 241, 0.2);
+      }
+
+      .stat-icon {
+        font-size: 40px;
+        margin-bottom: 16px;
+        background: linear-gradient(135deg, #6366f1, #8b5cf6);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .stat-label {
+        color: #64748b;
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 8px;
+      }
+
+      .stat-number {
+        font-size: 32px;
+        font-weight: 800;
+        color: #1e293b;
+      }
+
+      .stat-change {
+        font-size: 12px;
+        color: #10b981;
+        margin-top: 12px;
+      }
+
+      /* Tables Section */
+      .tables-section {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+        gap: 30px;
+      }
+
+      .table-card {
+        background: white;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+        border: 1px solid #e2e8f0;
+      }
+
+      .table-header {
+        background: linear-gradient(135deg, #6366f1, #8b5cf6);
+        color: white;
+        padding: 24px;
+        font-size: 18px;
+        font-weight: 700;
+      }
+
+      .table-content {
+        overflow-x: auto;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      th {
+        background: #f8fafc;
+        padding: 16px;
+        text-align: left;
+        font-weight: 600;
+        color: #475569;
+        font-size: 13px;
+        border-bottom: 2px solid #e2e8f0;
+      }
+
+      td {
+        padding: 16px;
+        border-bottom: 1px solid #e2e8f0;
+      }
+
+      tr:last-child td {
+        border-bottom: none;
+      }
+
+      .status-online {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: #d1fae5;
+        color: #065f46;
+        padding: 6px 12px;
+        border-radius: 50px;
+        font-size: 13px;
+        font-weight: 600;
+      }
+
+      .status-online::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        background: #10b981;
+        border-radius: 50%;
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.5;
+        }
+      }
+
+      .status-applied {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: #dbeafe;
+        color: #1e40af;
+        padding: 6px 12px;
+        border-radius: 50px;
+        font-size: 13px;
+        font-weight: 600;
+      }
+
+      .status-applied::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        background: #3b82f6;
+        border-radius: 50%;
+      }
+
+      .empty-state {
+        padding: 40px;
+        text-align: center;
+        color: #64748b;
+      }
+
+      .empty-state i {
+        font-size: 48px;
+        color: #cbd5e1;
+        margin-bottom: 16px;
+        display: block;
+      }
+
+      /* Footer */
+      footer {
+        background: #1e293b;
+        color: #94a3b8;
+        padding: 40px 0;
+        text-align: center;
+        margin-top: 80px;
+      }
+
+      @media (max-width: 1024px) {
+        .tables-section {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .page-title {
+          font-size: 26px;
+        }
+        .header-inner {
+          flex-direction: column;
+          gap: 16px;
+          text-align: center;
+        }
+        .admin-info {
+          flex-direction: column;
+          gap: 12px;
+        }
+        .admin-user {
+          text-align: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="container header-inner">
+        <a href="admin.html" class="logo">
+          <i class="fas fa-briefcase"></i> Joobseeker Admin
+        </a>
+        <div class="admin-info">
+          <div class="admin-user">
+            <div class="name" id="admin-name">Admin</div>
+            <div class="role">Quản trị viên</div>
+          </div>
+          <a href="#" id="btn-logout" class="btn-logout">
+            <i class="fas fa-sign-out-alt"></i> Đăng xuất
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <section class="admin-content">
+      <div class="container">
+        <div class="page-title">Dashboard Quản trị</div>
+
+        <!-- Stats Cards -->
+        <div class="dashboard-grid">
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="fas fa-users-online"></i>
+            </div>
+            <div class="stat-label">Người dùng online</div>
+            <div class="stat-number" id="online-count">0</div>
+            <div class="stat-change">Cập nhật theo thời gian thực</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="fas fa-file-import"></i>
+            </div>
+            <div class="stat-label">Đơn ứng tuyển hôm nay</div>
+            <div class="stat-number" id="applied-count">0</div>
+            <div class="stat-change">Từ tất cả các công ty</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="fas fa-briefcase"></i>
+            </div>
+            <div class="stat-label">Tổng số việc làm</div>
+            <div class="stat-number">50,000+</div>
+            <div class="stat-change">Trên nền tảng</div>
+          </div>
+        </div>
+
+        <!-- Tables -->
+        <div class="tables-section">
+          <!-- Online Users Table -->
+          <div class="table-card">
+            <div class="table-header">
+              <i
+                class="fas fa-circle-dot"
+                style="color: #10b981; margin-right: 8px"
+              ></i>
+              Người dùng online
+            </div>
+            <div class="table-content">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Tên người dùng</th>
+                    <th>Trạng thái</th>
+                    <th>Lần cuối</th>
+                  </tr>
+                </thead>
+                <tbody id="online-table">
+                  <tr>
+                    <td colspan="3" class="empty-state">
+                      <i class="fas fa-inbox"></i>
+                      Chưa có người dùng online
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Applications Table -->
+          <div class="table-card">
+            <div class="table-header">
+              <i
+                class="fas fa-file-import"
+                style="color: #3b82f6; margin-right: 8px"
+              ></i>
+              Đơn ứng tuyển gần đây
+            </div>
+            <div class="table-content">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Ứng viên</th>
+                    <th>Vị trí</th>
+                    <th>Ngày nộp</th>
+                  </tr>
+                </thead>
+                <tbody id="applications-table">
+                  <tr>
+                    <td colspan="3" class="empty-state">
+                      <i class="fas fa-inbox"></i>
+                      Chưa có đơn ứng tuyển
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <p>© 2025 Joobseeker Admin. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script>
+      (function () {
+        // Kiểm tra login admin
+        document.addEventListener("DOMContentLoaded", function () {
+          try {
+            var currentUser = localStorage.getItem("currentUser");
+            if (!currentUser) {
+              window.location.href = "dangnhap_ungvien.html";
+              return;
+            }
+
+            var user = JSON.parse(currentUser);
+            var isAdmin =
+              user.email === "admin@jobseeker.com" || user.isAdmin === true;
+            if (!isAdmin) {
+              // User không phải admin, quay lại trang chủ
+              window.location.href = "trangchinh.html";
+              return;
+            }
+
+            // Hiển thị tên admin
+            document.getElementById("admin-name").textContent =
+              user.fullname || user.email || "Admin";
+
+            // Render dữ liệu
+            renderOnlineUsers();
+            renderApplications();
+
+            // Logout
+            document
+              .getElementById("btn-logout")
+              .addEventListener("click", function (e) {
+                e.preventDefault();
+                localStorage.removeItem("currentUser");
+                window.location.href = "dangnhap_ungvien.html";
+              });
+          } catch (err) {
+            console.error("Admin error", err);
+            window.location.href = "dangnhap_ungvien.html";
+          }
+        });
+
+        function renderOnlineUsers() {
+          var tbody = document.getElementById("online-table");
+          var onlineCount = document.getElementById("online-count");
+
+          // Demo: lấy từ sessionStorage (users online trong session này)
+          var onlineUsers = [];
+          try {
+            onlineUsers = JSON.parse(
+              sessionStorage.getItem("onlineUsers") || "[]"
+            );
+          } catch (err) {
+            onlineUsers = [];
+          }
+
+          // Thêm current user vào online list
+          var currentUser = localStorage.getItem("currentUser");
+          if (currentUser) {
+            try {
+              var user = JSON.parse(currentUser);
+              if (!onlineUsers.find((u) => u.email === user.email)) {
+                onlineUsers.push({
+                  email: user.email,
+                  fullname: user.fullname,
+                  lastSeen: new Date().toLocaleTimeString("vi-VN"),
+                });
+                sessionStorage.setItem(
+                  "onlineUsers",
+                  JSON.stringify(onlineUsers)
+                );
+              }
+            } catch (err) {}
+          }
+
+          onlineCount.textContent = onlineUsers.length;
+
+          if (onlineUsers.length === 0) {
+            tbody.innerHTML =
+              '<tr><td colspan="3" class="empty-state"><i class="fas fa-inbox"></i> Chưa có người dùng online</td></tr>';
+            return;
+          }
+
+          tbody.innerHTML = onlineUsers
+            .map(
+              (user) => `
+          <tr>
+            <td><strong>${user.fullname || user.email}</strong></td>
+            <td><span class="status-online">Online</span></td>
+            <td>${user.lastSeen || "---"}</td>
+          </tr>
+        `
+            )
+            .join("");
+        }
+
+        function renderApplications() {
+          var tbody = document.getElementById("applications-table");
+          var appliedCount = document.getElementById("applied-count");
+
+          // Lấy danh sách ứng tuyển từ localStorage
+          var applications = [];
+          try {
+            applications = JSON.parse(
+              localStorage.getItem("applications") || "[]"
+            );
+          } catch (err) {
+            applications = [];
+          }
+
+          // Lọc những ứng tuyển hôm nay
+          var today = new Date().toDateString();
+          var todayApplications = applications.filter((app) => {
+            try {
+              return new Date(app.date).toDateString() === today;
+            } catch (err) {
+              return false;
+            }
+          });
+
+          appliedCount.textContent = todayApplications.length;
+
+          if (todayApplications.length === 0) {
+            tbody.innerHTML =
+              '<tr><td colspan="3" class="empty-state"><i class="fas fa-inbox"></i> Chưa có đơn ứng tuyển hôm nay</td></tr>';
+            return;
+          }
+
+          tbody.innerHTML = todayApplications
+            .slice()
+            .reverse()
+            .map((app, idx) => {
+              var appDate = new Date(app.date);
+              var dateStr =
+                appDate.toLocaleDateString("vi-VN") +
+                " " +
+                appDate.toLocaleTimeString("vi-VN", {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                });
+              var applicantName =
+                (app.data && app.data["Họ *"]) || "Ứng viên #" + (idx + 1);
+              return `
+            <tr>
+              <td><strong>${applicantName}</strong></td>
+              <td><span class="status-applied">${
+                app.job || "Việc làm"
+              }</span></td>
+              <td>${dateStr}</td>
+            </tr>
+          `;
+            })
+            .join("");
+        }
+
+        // Refresh data mỗi 5 giây
+        setInterval(function () {
+          try {
+            renderOnlineUsers();
+            renderApplications();
+          } catch (err) {}
+        }, 5000);
+      })();
+    </script>
+  </body>
+</html>

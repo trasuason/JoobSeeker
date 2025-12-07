@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JoObs - Tìm kiếm việc làm</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body {
+            background: linear-gradient(135deg, #FF8C42, #FF5733);
+            min-height: 100vh;
+            padding: 30px 20px;
+            color: #333;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255,255,255,0.95);
+            padding: 15px 25px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        .header h2 { font-size: 20px; color: #FF5733; }
+        .filters { display: flex; gap: 12px; flex-wrap: wrap; }
+        .filter-btn {
+            background: #fff; border: 1px solid #ddd; padding: 8px 16px;
+            border-radius: 30px; font-size: 14px; cursor: pointer; transition: all 0.3s;
+        }
+        .filter-btn.active, .filter-btn:hover {
+            background: #FF8C42; color: white; border-color: #FF8C42;
+        }
+        .jobs-list { display: flex; flex-direction: column; gap: 20px; }
+        .job-card {
+            background: white; border-radius: 24px; padding: 24px;
+            display: flex; align-items: center; justify-content: space-between;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .job-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(255, 140, 66, 0.25);
+        }
+        .job-left { display: flex; align-items: center; gap: 20px; }
+        .job-logo {
+            width: 60px; height: 60px; border-radius: 16px;
+            background: #f0f0f0; display: flex; align-items: center;
+            justify-content: center; font-size: 28px; color: #FF5733;
+        }
+        .job-info h3 { font-size: 18px; margin-bottom: 6px; color: #333; }
+        .job-info p { font-size: 14px; color: #888; }
+        .job-meta {
+            display: flex; align-items: center; gap: 30px; margin-top: 10px;
+        }
+        .meta-item {
+            display: flex; align-items: center; gap: 8px;
+            font-size: 15px; color: #FF5733; font-weight: 600;
+        }
+        .meta-item i { color: #FF8C42; }
+        .job-actions { display: flex; align-items: center; gap: 12px; }
+        .btn-apply {
+            background: linear-gradient(135deg, #9C27B0, #E91E63);
+            color: white; border: none; padding: 10px 28px;
+            border-radius: 30px; font-weight: 600; cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-apply:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(156, 39, 176, 0.4);
+        }
+        .btn-save {
+            width: 44px; height: 44px; border-radius: 50%;
+            background: #ffeaea; color: #FF5733; border: none;
+            font-size: 20px; cursor: pointer; transition: 0.3s;
+        }
+        .btn-save:hover { background: #FF5733; color: white; }
+        .pagination {
+            display: flex; justify-content: center; align-items: center;
+            gap: 15px; margin-top: 50px; font-size: 16px;
+        }
+        .pagination button {
+            background: white; border: none; width: 40px; height: 40px;
+            border-radius: 50%; cursor: pointer; font-weight: bold; color: #FF5733;
+        }
+        .pagination button.active { background: #FF5733; color: white; }
+        .pagination a { color: white; text-decoration: none; font-weight: 500; }
+        @media (max-width: 768px) {
+            .job-card { flex-direction: column; text-align: center; }
+            .job-actions { margin-top: 20px; }
+            .job-meta { justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Header + Bộ lọc -->
+    <div class="header">
+        <h2>Đang hiển thị 34 việc làm</h2>
+        <div class="filters">
+            <button class="filter-btn active">Toàn thời gian</button>
+            <button class="filter-btn">Freelance</button>
+            <button class="filter-btn">Làm việc từ xa</button>
+            <button class="filter-btn">Bán thời gian</button>
+            <button class="filter-btn">Mức lương <i class="fas fa-chevron-down"></i></button>
+            <button class="filter-btn">Mới nhất <i class="fas fa-chevron-down"></i></button>
+        </div>
+    </div>
+
+    <!-- Danh sách việc làm -->
+    <div class="jobs-list">
+        <!-- Việc làm 1 -->
+        <div class="job-card">
+            <div class="job-left">
+                <div class="job-logo" style="background:#ffe5e5;"><i class="fab fa-google"></i></div>
+                <div>
+                    <div class="job-info">
+                        <h3>Senior UX Designer</h3>
+                        <p>Highspeed Studios</p>
+                    </div>
+                    <div class="job-meta">
+                        <div class="meta-item"><i class="fas fa-dollar-sign"></i> 14.000 - 25.000 USD</div>
+                        <div class="meta-item"><i class="fas fa-map-marker-alt"></i> London, Anh</div>
+                    </div>
+                </div>
+            </div>
+            <div class="job-actions">
+                <button class="btn-apply">Ứng tuyển ngay</button>
+                <button class="btn-save"><i class="far fa-heart"></i></button>
+            </div>
+        </div>
+
+        <!-- Việc làm 2 -->
+        <div class="job-card">
+            <div class="job-left">
+                <div class="job-logo" style="background:#e5e5ff;"><i class="fab fa-facebook"></i></div>
+                <div>
+                    <div class="job-info">
+                        <h3>Intern UX Designer</h3>
+                        <p>Maximize Team</p>
+                    </div>
+                    <div class="job-meta">
+                        <div class="meta-item"><i class="fas fa-dollar-sign"></i> 500 - 1.000 USD</div>
+                        <div class="meta-item"><i class="fas fa-map-marker-alt"></i> Manchester, Anh</div>
+                    </div>
+                </div>
+            </div>
+            <div class="job-actions">
+                <button class="btn-apply">Ứng tuyển ngay</button>
+                <button class="btn-save"><i class="far fa-heart"></i></button>
+            </div>
+        </div>
+
+        <!-- Việc làm 3 -->
+        <div class="job-card">
+            <div class="job-left">
+                <div class="job-logo" style="background:#e5fff0;"><i class="fab fa-apple"></i></div>
+                <div>
+                    <div class="job-info">
+                        <h3>Principal UX Designer</h3>
+                        <p>Lowvoltage Team</p>
+                    </div>
+                    <div class="job-meta">
+                        <div class="meta-item"><i class="fas fa-dollar-sign"></i> 11.000 - 60.000 USD</div>
+                        <div class="meta-item"><i class="fas fa-map-marker-alt"></i> London, Anh</div>
+                    </div>
+                </div>
+            </div>
+            <div class="job-actions">
+                <button class="btn-apply">Ứng tuyển ngay</button>
+                <button class="btn-save"><i class="far fa-heart"></i></button>
+            </div>
+        </div>
+
+        <!-- Thêm bao nhiêu việc làm tùy thích bằng cách copy-paste khối trên -->
+
+        <!-- Phân trang -->
+        <div class="pagination">
+            <a href="#">← Trước</a>
+            <button>1</button>
+            <button>2</button>
+            <button class="active">3</button>
+            <button>4</button>
+            <a href="#">Tiếp →</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

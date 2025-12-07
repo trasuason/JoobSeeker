@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Senior Frontend Developer (ReactJS) - FPT Software | Joobseeker
+    </title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Inter", sans-serif;
+        background: #f8fafc;
+        color: #1e293b;
+        line-height: 1.7;
+      }
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* Header - giống hệt các trang trước */
+      header {
+        background: linear-gradient(135deg, #d93b14 0%, #96562e 100%);
+        color: white;
+        padding: 1rem 0;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 10px 30px rgba(99, 102, 241, 0.2);
+      }
+      .header-inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .logo {
+        font-family: "Poppins", sans-serif;
+        font-size: 32px;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+        color: white;
+      }
+      .logo i {
+        font-size: 40px;
+        background: linear-gradient(135deg, #fbbf24, #f59e0b);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .nav-links a {
+        color: white;
+        text-decoration: none;
+        margin-left: 30px;
+        font-weight: 500;
+      }
+      .nav-links a:hover {
+        opacity: 0.8;
+      }
+      .btn-login {
+        background: rgba(255, 255, 255, 0.2);
+        padding: 10px 24px;
+        border-radius: 50px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+
+      /* Job Detail Layout */
+      .job-detail {
+        padding: 60px 0;
+      }
+      .job-layout {
+        display: grid;
+        grid-template-columns: 1fr 380px;
+        gap: 40px;
+      }
+
+      /* Nội dung chính */
+      .job-main {
+        background: white;
+        border-radius: 24px;
+        padding: 40px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+      }
+      .job-header {
+        display: flex;
+        align-items: flex-start;
+        gap: 24px;
+        margin-bottom: 32px;
+        padding-bottom: 32px;
+        border-bottom: 1px solid #e2e8f0;
+      }
+      .job-logo {
+        width: 100px;
+        height: 100px;
+        background: #f8fafc;
+        border-radius: 20px;
+        padding: 12px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+      }
+      .job-logo img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+      .job-info h1 {
+        font-size: 32px;
+        font-weight: 800;
+        margin-bottom: 12px;
+        line-height: 1.3;
+      }
+      .company-name {
+        font-size: 20px;
+        color: #6366f1;
+        font-weight: 600;
+        margin-bottom: 16px;
+      }
+      .job-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        color: #64748b;
+        font-size: 15px;
+      }
+      .job-meta i {
+        margin-right: 8px;
+        color: #94a3b8;
+      }
+
+      .salary-highlight {
+        font-size: 28px;
+        font-weight: 800;
+        color: #f97316;
+        margin: 24px 0;
+      }
+
+      .section-title {
+        font-size: 24px;
+        font-weight: 700;
+        margin: 40px 0 20px;
+        color: #1e293b;
+      }
+      .job-description ul {
+        padding-left: 24px;
+        margin: 16px 0;
+      }
+      .job-description li {
+        margin-bottom: 12px;
+      }
+      .job-description p {
+        margin-bottom: 16px;
+      }
+
+      /* Sidebar phải */
+      .job-sidebar {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
+      .apply-box {
+        background: linear-gradient(135deg, #e06e11, #ea0404);
+        color: white;
+        border-radius: 24px;
+        padding: 32px;
+        text-align: center;
+        box-shadow: 0 15px 40px rgba(222, 74, 20, 0.3);
+      }
+      .apply-box .salary {
+        font-size: 30px;
+        font-weight: 800;
+        margin: 16px 0;
+      }
+      .btn-apply-large {
+        background: #fbbf24;
+        color: #1e293b;
+        width: 100%;
+        padding: 18px;
+        border: none;
+        border-radius: 50px;
+        font-size: 18px;
+        font-weight: 700;
+        cursor: pointer;
+        margin-top: 20px;
+        transition: 0.3s;
+      }
+      .btn-apply-large:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 15px 30px rgba(251, 191, 36, 0.5);
+      }
+      .btn-save {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        margin-top: 12px;
+      }
+
+      .company-card-mini {
+        background: white;
+        border-radius: 20px;
+        padding: 24px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+        text-align: center;
+      }
+      .company-card-mini img {
+        width: 90px;
+        height: 90px;
+        object-fit: contain;
+        margin-bottom: 16px;
+      }
+      .company-card-mini h3 {
+        font-size: 20px;
+        margin-bottom: 12px;
+      }
+      .company-card-mini .stats {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 20px;
+        font-size: 14px;
+        color: #64748b;
+      }
+      .stats div span {
+        display: block;
+        font-weight: 700;
+        font-size: 18px;
+        color: #1e293b;
+      }
+
+      /* Việc làm tương tự */
+      .similar-jobs {
+        background: white;
+        border-radius: 20px;
+        padding: 28px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+      }
+      .similar-job {
+        padding: 20px 0;
+        border-bottom: 1px solid #e2e8f0;
+      }
+      .similar-job:last-child {
+        border-bottom: none;
+      }
+      .similar-job h4 {
+        font-size: 17px;
+        margin-bottom: 8px;
+      }
+      .similar-job .company {
+        color: #6366f1;
+        font-weight: 600;
+        font-size: 15px;
+      }
+
+      /* Footer */
+      footer {
+        background: #0f172a;
+        color: #94a3b8;
+        padding: 80px 0 40px;
+        margin-top: 80px;
+      }
+      .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 50px;
+        margin-bottom: 60px;
+      }
+      .footer-logo {
+        font-family: "Poppins", sans-serif;
+        font-size: 36px;
+        font-weight: 800;
+        color: white;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 20px;
+      }
+      .footer-logo i {
+        background: linear-gradient(135deg, #fbbf24, #f59e0b);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      footer h4 {
+        color: white;
+        margin-bottom: 20px;
+      }
+      footer a {
+        color: #94a3b8;
+        text-decoration: none;
+        display: block;
+        margin-bottom: 12px;
+      }
+      footer a:hover {
+        color: #fbbf24;
+      }
+      .copyright {
+        text-align: center;
+        padding-top: 40px;
+        border-top: 1px solid #1e293b;
+        color: #64748b;
+      }
+
+      @media (max-width: 992px) {
+        .job-layout {
+          grid-template-columns: 1fr;
+        }
+        .apply-box {
+          order: -1;
+        }
+      }
+      @media (max-width: 768px) {
+        .job-header {
+          flex-direction: column;
+          text-align: center;
+        }
+        .job-info h1 {
+          font-size: 26px;
+        }
+      }
+    .btn-apply-large a{
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="container header-inner">
+        <a href="index.html" class="logo">
+          <i class="fas fa-briefcase"></i> Joobseeker
+        </a>
+        <div class="nav-links">
+          <a href="#">Việc làm</a>
+          <a href="./congty.html">Công ty</a>
+          <a href="./khoahoc.html">Khóa học</a>
+          <div
+            id="user-area"
+            style="
+              display: inline-block;
+              margin-left: 18px;
+              vertical-align: middle;
+            "
+          >
+            <a href="dangnhap_ungvien.html" class="btn-login">Đăng nhập</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Job Detail Content -->
+    <section class="job-detail">
+      <div class="container">
+        <div class="job-layout">
+          <!-- Nội dung chính -->
+          <div class="job-main">
+            <div class="job-header">
+              <div class="job-logo">
+                <img
+                  src="https://via.placeholder.com/120?text=FPT"
+                  alt="FPT Software"
+                />
+              </div>
+              <div class="job-info">
+                <h1>Senior Frontend Developer (ReactJS + TypeScript)</h1>
+                <div class="company-name">FPT Software</div>
+                <div class="job-meta">
+                  <span><i class="fas fa-map-marker-alt"></i> Hà Nội</span>
+                  <span><i class="fas fa-clock"></i> Full-time</span>
+                  <span
+                    ><i class="fas fa-calendar-alt"></i> Đăng 3 ngày trước</span
+                  >
+                  <span><i class="fas fa-eye"></i> 1.248 lượt xem</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="salary-highlight">25 - 40 triệu VNĐ</div>
+
+            <div class="section-title">Mô tả công việc</div>
+            <div class="job-description">
+              <ul>
+                <li>
+                  Xây dựng và phát triển các sản phẩm web doanh nghiệp lớn với
+                  ReactJS + TypeScript
+                </li>
+                <li>Tối ưu hiệu suất, đảm bảo responsive trên mọi thiết bị</li>
+                <li>Thiết kế kiến trúc component sạch, tái sử dụng cao</li>
+                <li>Phối hợp chặt chẽ với team Backend và Designer</li>
+                <li>Review code, mentor junior developer</li>
+                <li>Tham gia xây dựng Design System chung</li>
+              </ul>
+            </div>
+
+            <div class="section-title">Yêu cầu ứng viên</div>
+            <div class="job-description">
+              <ul>
+                <li>Từ 3 năm kinh nghiệm ReactJS thực tế</li>
+                <li>Thành thạo TypeScript, Redux Toolkit, React Query</li>
+                <li>Có kinh nghiệm với Next.js là một lợi thế</li>
+                <li>Hiểu sâu về performance, accessibility, SEO</li>
+                <li>Tư duy sạch, viết code dễ bảo trì</li>
+                <li>
+                  Tiếng Anh giao tiếp tốt (làm việc với khách hàng quốc tế)
+                </li>
+              </ul>
+            </div>
+
+            <div class="section-title">Quyền lợi</div>
+            <div class="job-description">
+              <p>Lương cạnh tranh 25-40 triệu + thưởng dự án</p>
+              <p>13 tháng lương + thưởng hiệu suất cuối năm</p>
+              <p>Làm việc Hybrid (3 ngày WFO, 2 ngày WFH)</p>
+              <p>Bảo hiểm FPT Care đầy đủ cho bản thân + người thân</p>
+              <p>Du lịch công ty hàng năm, team building quốc tế</p>
+              <p>MacBook Pro + màn hình 4K + phụ kiện cao cấp</p>
+            </div>
+          </div>
+
+          <!-- Sidebar phải -->
+          <aside class="job-sidebar">
+            <!-- Nút ứng tuyển lớn -->
+            <div class="apply-box">
+              <div class="salary">25 - 40 triệu</div>
+              <p >Ứng tuyển trước ngày <strong>30/12/2025</strong></p>
+              <button class="btn-apply-large">
+               
+                <i class="fas fa-paper-plane "></i> <a href="./ungtuyen.html">Ứng tuyển ngay</a>
+              </button>
+              <button class="btn-apply-large btn-save">
+                <i class="far fa-heart"></i> Lưu tin
+              </button>
+            </div>
+
+            <!-- Card công ty nhỏ -->
+            <div class="company-card-mini">
+              <img src="https://via.placeholder.com/120?text=FPT" alt="FPT" />
+              <h3>FPT Software</h3>
+              <p class="text-muted">Top 1 công ty IT Việt Nam</p>
+              <div class="stats">
+                <div>
+                  <span>286</span>
+                  <small>Việc làm</small>
+                </div>
+                <div>
+                  <span>15k+</span>
+                  <small>Nhân viên</small>
+                </div>
+              </div>
+              <a
+                href="#"
+                style="
+                  display: block;
+                  margin-top: 20px;
+                  color: #6366f1;
+                  font-weight: 600;
+                "
+                >Xem trang công ty →</a
+              >
+            </div>
+
+            <!-- Việc làm tương tự -->
+            <div class="similar-jobs">
+              <h3 style="margin-bottom: 20px; font-size: 20px">
+                Việc làm tương tự
+              </h3>
+              <div class="similar-job">
+                <h4>React Developer (Remote)</h4>
+                <div class="company">VNG Corporation</div>
+                <p style="color: #f97316; font-weight: 600; margin-top: 8px">
+                  20 - 35 triệu
+                </p>
+              </div>
+              <div class="similar-job">
+                <h4>Frontend Lead</h4>
+                <div class="company">Tiki Corporation</div>
+                <p style="color: #f97316; font-weight: 600; margin-top: 8px">
+                  35 - 50 triệu
+                </p>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-grid">
+          <div>
+            <div class="footer-logo">
+              <i class="fas fa-briefcase"></i> Joobseeker
+            </div>
+            <p>
+              Nền tảng tìm việc làm hàng đầu Việt Nam. Kết nối tài năng với cơ
+              hội.
+            </p>
+          </div>
+          <div>
+            <h4>Về chúng tôi</h4>
+            <a href="#">Giới thiệu</a><a href="#">Tuyển dụng</a
+            ><a href="#">Blog</a><a href="#">Liên hệ</a>
+          </div>
+          <div>
+            <h4>Nhà tuyển dụng</h4>
+            <a href="#">Đăng tin</a><a href="#">Gói dịch vụ</a
+            ><a href="#">Hỗ trợ</a>
+          </div>
+          <div>
+            <h4>Theo dõi</h4>
+            <a href="#">Facebook</a><a href="#">LinkedIn</a
+            ><a href="#">Instagram</a>
+          </div>
+        </div>
+        <div class="copyright">
+          © 2025 Joobseeker. Tất cả quyền được bảo lưu.
+        </div>
+      </div>
+    </footer>
+    <script>
+      // Hiển thị tên người dùng ở header nếu đã đăng nhập (demo sử dụng localStorage)
+      (function () {
+        function safeText(text) {
+          var span = document.createElement("span");
+          span.textContent = text;
+          return span.textContent;
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+          try {
+            var userArea = document.getElementById("user-area");
+            if (!userArea) return;
+            var raw =
+              localStorage.getItem("currentUser") ||
+              localStorage.getItem("userAccount");
+            if (!raw) {
+              return;
+            }
+            var user = null;
+            try {
+              user = JSON.parse(raw);
+            } catch (e) {
+              user = null;
+            }
+            if (!user) return;
+
+            var displayName =
+              user.fullname || user.name || user.email || "Người dùng";
+
+            userArea.innerHTML = "";
+            var nameEl = document.createElement("a");
+            nameEl.href = "#";
+            nameEl.className = "btn-login";
+            nameEl.style.cursor = "default";
+            nameEl.style.padding = "10px 18px";
+            nameEl.style.borderRadius = "40px";
+            nameEl.style.background = "rgba(255,255,255,0.15)";
+            nameEl.style.border = "1px solid rgba(255,255,255,0.18)";
+            nameEl.textContent = safeText(displayName);
+
+            var logoutEl = document.createElement("a");
+            logoutEl.href = "#";
+            logoutEl.id = "logout-link";
+            logoutEl.textContent = "Đăng xuất";
+            logoutEl.style.marginLeft = "12px";
+            logoutEl.className = "btn-login";
+            logoutEl.style.background = "rgba(255,255,255,0.08)";
+
+            userArea.appendChild(nameEl);
+            userArea.appendChild(logoutEl);
+
+            logoutEl.addEventListener("click", function (e) {
+              e.preventDefault();
+              localStorage.removeItem("currentUser");
+              window.location.href = "dangnhap_ungvien.html";
+            });
+          } catch (err) {
+            console.error("User area script error", err);
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

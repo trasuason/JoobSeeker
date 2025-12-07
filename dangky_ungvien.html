@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Đăng ký người tìm việc — JoQbs</title>
+    <link rel="stylesheet" href="assets/style.css" />
+  </head>
+  <body>
+    <div class="page-bg"></div>
+    <main class="center-wrap">
+      <div class="register-card">
+        <div class="left-panel">
+          <div class="left-inner">
+            <div class="brand">JoQbs</div>
+            <h2>
+              Bứt phá tương lai
+              <span class="line">Bước vào cơ hội mới</span>
+            </h2>
+            <p class="lead">
+              Tìm công việc phù hợp, tạo hồ sơ chuyên nghiệp và ứng tuyển dễ
+              dàng.
+            </p>
+            <img
+              class="hero-img"
+              src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?q=80&w=900&auto=format&fit=crop&ixlib=rb-4.0.3&s=7e7c8b6a4b8e6b5f3e8a6f2d1d0e9a2d"
+              alt="illustration"
+            />
+          </div>
+        </div>
+
+        <div class="right-form">
+          <div class="form-inner">
+            <h3>Đăng ký hồ sơ ứng viên</h3>
+            <p class="muted small">
+              Tạo tài khoản để lưu hồ sơ, nhận việc phù hợp và ứng tuyển nhanh.
+            </p>
+
+            <form action="#" onsubmit="event.preventDefault();">
+              <div class="row">
+                <input type="text" placeholder="Họ và tên" required />
+              </div>
+              <div class="row two">
+                <input type="email" placeholder="Email" required /><input
+                  type="tel"
+                  placeholder="Số điện thoại"
+                />
+              </div>
+              <div class="row two">
+                <input type="password" placeholder="Mật khẩu" required /><input
+                  type="password"
+                  placeholder="Xác nhận mật khẩu"
+                  required
+                />
+              </div>
+
+              <label class="checkbox"
+                ><input type="checkbox" required /> Tôi đồng ý với
+                <a href="#">Điều khoản & Chính sách</a></label
+              >
+
+              <div class="actions">
+                <button class="btn primary">Tạo tài khoản</button>
+              </div>
+
+              <div class="divider"><span>Hoặc</span></div>
+
+              <div class="socials">
+                <button class="social google">Sign up with Google</button>
+                <button class="social fb">Sign up with Facebook</button>
+              </div>
+
+              <p class="muted center">
+                Đã có tài khoản? <a href="dangnhap_ungvien.html">Đăng nhập</a>
+              </p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <div class="modal-backdrop" id="successModal">
+      <div class="modal-content">
+        <div class="modal-icon">✓</div>
+        <h2>Đăng ký thành công!</h2>
+        <p>
+          Tài khoản của bạn đã được tạo. Chuyển hướng sang trang đăng nhập...
+        </p>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const form = document.querySelector("form");
+        const modal = document.getElementById("successModal");
+
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+
+          // Get form values
+          const fullname = form.querySelector('input[type="text"]').value;
+          const email = form.querySelector('input[type="email"]').value;
+          const password = form.querySelector('input[type="password"]').value;
+          const confirmPassword = form.querySelectorAll(
+            'input[type="password"]'
+          )[1].value;
+
+          // Validate passwords match
+          if (password !== confirmPassword) {
+            alert("Mật khẩu không trùng khớp!");
+            return;
+          }
+
+          // Save to localStorage
+          const userData = {
+            fullname: fullname,
+            email: email,
+            password: password,
+            phone: form.querySelector('input[type="tel"]').value,
+          };
+          localStorage.setItem("userAccount", JSON.stringify(userData));
+
+          // Show success modal
+          modal.classList.add("show");
+          // Redirect after 2 seconds
+          setTimeout(() => {
+            window.location.href = "dangnhap_ungvien.html";
+          }, 2000);
+        });
+      });
+    </script>
+  </body>
+</html>

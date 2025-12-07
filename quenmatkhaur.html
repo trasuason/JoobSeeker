@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quên mật khẩu - Joobseeker</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #ff6b35;
+        --primary-dark: #f7931e;
+        --accent: #ff8c42;
+        --gray-100: #f8fafc;
+        --gray-200: #e2e8f0;
+        --gray-600: #475569;
+        --gray-900: #1e293b;
+        --success: #10b981;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background: linear-gradient(135deg, #ffe8d6 0%, #fff8f2 100%);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* Hiệu ứng nền nhẹ */
+      body::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><circle cx="200" cy="200" r="80" fill="%23ff6b35" opacity="0.1"/><circle cx="800" cy="300" r="120" fill="%23f7931e" opacity="0.08"/><circle cx="600" cy="700" r="100" fill="%23ff8c42" opacity="0.1"/></svg>')
+          center/cover no-repeat;
+        pointer-events: none;
+        animation: float 20s infinite linear;
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(0) rotate(0deg);
+        }
+        100% {
+          transform: translateY(-100px) rotate(10deg);
+        }
+      }
+
+      .container {
+        width: 90%;
+        max-width: 1100px;
+        background: white;
+        border-radius: 28px;
+        overflow: hidden;
+        box-shadow: 0 25px 80px rgba(255, 107, 53, 0.25);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        position: relative;
+        z-index: 1;
+      }
+
+      /* Bên trái - Branding */
+      .left-panel {
+        background: linear-gradient(
+          135deg,
+          var(--primary) 0%,
+          var(--primary-dark) 100%
+        );
+        color: white;
+        padding: 60px 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .left-panel::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.15) 0%,
+          transparent 70%
+        );
+        animation: rotate 30s linear infinite;
+      }
+
+      @keyframes rotate {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .logo {
+        font-family: "Poppins", sans-serif;
+        font-size: 36px;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 40px;
+      }
+
+      .logo i {
+        font-size: 42px;
+        background: linear-gradient(135deg, #fbbf24, #f59e0b);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .left-panel h1 {
+        font-size: 42px;
+        font-weight: 800;
+        margin-bottom: 20px;
+        line-height: 1.2;
+      }
+
+      .left-panel p {
+        font-size: 18px;
+        opacity: 0.95;
+        margin-bottom: 40px;
+        line-height: 1.7;
+      }
+
+      .illustration {
+        width: 100%;
+        max-width: 420px;
+        margin: 0 auto;
+        filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.2));
+      }
+
+      /* Bên phải - Form */
+      .right-panel {
+        padding: 70px 60px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .form-header {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+
+      .form-header h2 {
+        font-size: 34px;
+        font-weight: 800;
+        color: var(--gray-900);
+        margin-bottom: 12px;
+      }
+
+      .form-header p {
+        color: var(--gray-600);
+        font-size: 16px;
+      }
+
+      .form-group {
+        margin-bottom: 24px;
+        position: relative;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: 600;
+        color: var(--gray-900);
+      }
+
+      .input-wrapper {
+        position: relative;
+      }
+
+      .input-wrapper i {
+        position: absolute;
+        left: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #94a3b8;
+        font-size: 18px;
+      }
+
+      input[type="email"] {
+        width: 100%;
+        padding: 18px 20px 18px 50px;
+        border: 2px solid var(--gray-200);
+        border-radius: 16px;
+        font-size: 16px;
+        transition: all 0.3s;
+        background: var(--gray-100);
+      }
+
+      input[type="email"]:focus {
+        outline: none;
+        border-color: var(--primary);
+        background: white;
+        box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.15);
+      }
+
+      .btn-submit {
+        width: 100%;
+        padding: 18px;
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-dark)
+        );
+        color: white;
+        border: none;
+        border-radius: 50px;
+        font-size: 18px;
+        font-weight: 700;
+        cursor: pointer;
+        margin-top: 10px;
+        transition: all 0.4s;
+        box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3);
+      }
+
+      .btn-submit:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 40px rgba(255, 107, 53, 0.4);
+      }
+
+      .btn-submit:active {
+        transform: translateY(-1px);
+      }
+
+      .back-link {
+        text-align: center;
+        margin-top: 32px;
+      }
+
+      .back-link a {
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 16px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: 0.3s;
+      }
+
+      .back-link a:hover {
+        color: var(--primary-dark);
+        gap: 12px;
+      }
+
+      /* Thông báo thành công */
+      .success-message {
+        background: var(--success);
+        color: white;
+        padding: 20px;
+        border-radius: 16px;
+        text-align: center;
+        margin-bottom: 24px;
+        display: none;
+        animation: slideDown 0.6s ease;
+      }
+
+      @keyframes slideDown {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Responsive */
+      @media (max-width: 992px) {
+        .container {
+          grid-template-columns: 1fr;
+          margin: 20px;
+        }
+        .left-panel {
+          padding: 50px 40px;
+          text-align: center;
+        }
+        .left-panel h1 {
+          font-size: 36px;
+        }
+        .right-panel {
+          padding: 50px 40px;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .left-panel {
+          padding: 40px 20px;
+        }
+        .right-panel {
+          padding: 40px 20px;
+        }
+        .form-header h2 {
+          font-size: 28px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Bên trái: Branding + Hình ảnh -->
+      <div class="left-panel">
+        <div class="logo"><i class="fas fa-briefcase"></i> Joobseeker</div>
+        <h1>Đừng lo, chúng tôi sẽ giúp bạn lấy lại tài khoản ngay!</h1>
+        <p>
+          Chỉ cần nhập email đã đăng ký, hệ thống sẽ gửi link đặt lại mật khẩu
+          trong vòng 30 giây.
+        </p>
+        <img
+          src="https://images.unsplash.com/photo-1559526324-c1f275fbfa32?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+          alt="Quên mật khẩu"
+          class="illustration"
+        />
+      </div>
+
+      <!-- Bên phải: Form -->
+      <div class="right-panel">
+        <div class="form-header">
+          <h2>Quên mật khẩu?</h2>
+          <p>Nhập email để nhận link đặt lại mật khẩu</p>
+        </div>
+
+        <div class="success-message" id="successMsg">
+          <i
+            class="fas fa-check-circle"
+            style="font-size: 24px; margin-bottom: 8px"
+          ></i
+          ><br />
+          <strong>Đã gửi thành công!</strong><br />
+          Vui lòng kiểm tra email (bao gồm thư rác/spam) để đặt lại mật khẩu.
+        </div>
+
+        <form id="forgotForm">
+          <div class="form-group">
+            <label for="email">Địa chỉ Email</label>
+            <div class="input-wrapper">
+              <i class="fas fa-envelope"></i>
+              <input
+                type="email"
+                id="email"
+                placeholder="you@example.com"
+                required
+              />
+            </div>
+          </div>
+
+          <button type="submit" class="btn-submit">
+            <i class="fas fa-paper-plane"></i> Gửi link đặt lại mật khẩu
+          </button>
+        </form>
+
+        <div class="back-link">
+          <a href="dangnhap.html">
+            <i class="fas fa-arrow-left"></i> Quay lại đăng nhập
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document
+        .getElementById("forgotForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const email = document.getElementById("email").value;
+          const btn = this.querySelector(".btn-submit");
+
+          // Hiệu ứng loading
+          btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang gửi...';
+          btn.disabled = true;
+
+          // Gửi request tới backend
+          fetch("http://localhost:3000/api/forgot-password", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ email: email })
+          })
+          .then(response => response.json())
+          .then(data => {
+            if (data.success || data.error === undefined) {
+              // Email gửi thành công
+              document.getElementById("successMsg").style.display = "block";
+              document.querySelector(".form-group").style.display = "none";
+              btn.style.display = "none";
+              
+              // Thêm tin nhắn chi tiết
+              const successMsg = document.getElementById("successMsg");
+              successMsg.innerHTML = `
+                <i class="fas fa-check-circle" style="font-size:24px;margin-bottom:8px;"></i><br>
+                <strong>Đã gửi thành công!</strong><br>
+                Vui lòng kiểm tra email <strong>${email}</strong> để nhận mật khẩu.
+              `;
+            } else if (data.error) {
+              // Lỗi từ server
+              btn.innerHTML = '<i class="fas fa-paper-plane"></i> Gửi link đặt lại mật khẩu';
+              btn.disabled = false;
+              showErrorModal(data.error);
+            }
+          })
+          .catch(error => {
+            console.error("Error:", error);
+            btn.innerHTML = '<i class="fas fa-paper-plane"></i> Gửi link đặt lại mật khẩu';
+            btn.disabled = false;
+            showErrorModal("Không thể kết nối đến server. Vui lòng chắc chắn server đang chạy (node server.js)");
+          });
+        });
+
+      function showErrorModal(errorMessage) {
+        // Tạo modal hiển thị lỗi
+        const modal = document.createElement("div");
+        modal.style.cssText = `
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgba(0,0,0,0.6);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 9999;
+        `;
+
+        const modalContent = document.createElement("div");
+        modalContent.style.cssText = `
+          background: white;
+          border-radius: 20px;
+          padding: 40px;
+          max-width: 500px;
+          width: 90%;
+          box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+          text-align: center;
+          animation: slideUp 0.4s ease;
+        `;
+
+        const errorIcon = document.createElement("div");
+        errorIcon.innerHTML = '<i class="fas fa-exclamation-circle" style="font-size:48px;color:#ff6b35;margin-bottom:16px;"></i>';
+
+        const title = document.createElement("h2");
+        title.textContent = "Có lỗi xảy ra";
+        title.style.cssText = "color: #1e293b; font-size: 24px; margin-bottom: 16px;";
+
+        const message = document.createElement("p");
+        message.textContent = errorMessage;
+        message.style.cssText = "color: #64748b; margin-bottom: 24px; font-size: 16px;";
+
+        const closeBtn = document.createElement("button");
+        closeBtn.textContent = "Đóng";
+        closeBtn.style.cssText = `
+          width: 100%;
+          padding: 14px;
+          background: linear-gradient(135deg, #ff6b35, #f7931e);
+          color: white;
+          border: none;
+          border-radius: 50px;
+          font-size: 16px;
+          font-weight: 700;
+          cursor: pointer;
+          transition: all 0.3s;
+        `;
+
+        closeBtn.onmouseover = () => closeBtn.style.transform = "translateY(-2px)";
+        closeBtn.onmouseout = () => closeBtn.style.transform = "translateY(0)";
+
+        closeBtn.onclick = () => modal.remove();
+
+        modalContent.appendChild(errorIcon);
+        modalContent.appendChild(title);
+        modalContent.appendChild(message);
+        modalContent.appendChild(closeBtn);
+
+        modal.appendChild(modalContent);
+        document.body.appendChild(modal);
+      }
+
+      function showPasswordModal(account) {
+        // Tạo modal hiển thị mật khẩu
+        const modal = document.createElement("div");
+        modal.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+      `;
+
+        const modalContent = document.createElement("div");
+        modalContent.style.cssText = `
+        background: white;
+        border-radius: 20px;
+        padding: 40px;
+        max-width: 500px;
+        width: 90%;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        text-align: center;
+        animation: slideUp 0.4s ease;
+      `;
+
+        const successIcon = document.createElement("div");
+        successIcon.innerHTML =
+          '<i class="fas fa-check-circle" style="font-size:48px;color:#10b981;margin-bottom:16px;"></i>';
+
+        const title = document.createElement("h2");
+        title.textContent = "Mật khẩu của bạn";
+        title.style.cssText =
+          "color: #1e293b; font-size: 24px; margin-bottom: 16px;";
+
+        const emailInfo = document.createElement("p");
+        emailInfo.textContent = `Email: ${account.email}`;
+        emailInfo.style.cssText =
+          "color: #64748b; margin-bottom: 24px; font-size: 14px;";
+
+        const passwordLabel = document.createElement("p");
+        passwordLabel.textContent = "Mật khẩu:";
+        passwordLabel.style.cssText =
+          "color: #475569; font-weight: 600; margin-bottom: 8px; font-size: 14px;";
+
+        const passwordBox = document.createElement("div");
+        passwordBox.innerHTML = `<strong style="font-size:20px;color:#ff6b35;letter-spacing:2px;">${account.password}</strong>`;
+        passwordBox.style.cssText = `
+        background: #f1f5f9;
+        padding: 16px;
+        border-radius: 12px;
+        margin-bottom: 24px;
+        border: 2px solid #e2e8f0;
+      `;
+
+        const note = document.createElement("p");
+        note.textContent = "Vui lòng ghi nhớ mật khẩu và đăng nhập lại.";
+        note.style.cssText =
+          "color: #94a3b8; font-size: 14px; margin-bottom: 24px;";
+
+        const closeBtn = document.createElement("button");
+        closeBtn.textContent = "Đóng & Quay lại đăng nhập";
+        closeBtn.style.cssText = `
+        width: 100%;
+        padding: 14px;
+        background: linear-gradient(135deg, #ff6b35, #f7931e);
+        color: white;
+        border: none;
+        border-radius: 50px;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s;
+      `;
+
+        closeBtn.onmouseover = () =>
+          (closeBtn.style.transform = "translateY(-2px)");
+        closeBtn.onmouseout = () =>
+          (closeBtn.style.transform = "translateY(0)");
+
+        closeBtn.onclick = () => {
+          modal.remove();
+          window.location.href = "dangnhap_ungvien.html";
+        };
+
+        modalContent.appendChild(successIcon);
+        modalContent.appendChild(title);
+        modalContent.appendChild(emailInfo);
+        modalContent.appendChild(passwordLabel);
+        modalContent.appendChild(passwordBox);
+        modalContent.appendChild(note);
+        modalContent.appendChild(closeBtn);
+
+        modal.appendChild(modalContent);
+        document.body.appendChild(modal);
+
+        // Thêm animation
+        const style = document.createElement("style");
+        style.textContent = `
+        @keyframes slideUp {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+      `;
+        document.head.appendChild(style);
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Đăng ký — JoQbs</title>
+    <link rel="stylesheet" href="assets/style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap">
+        <a class="logo" href="joobseeker.html">JoQbs</a>
+        <nav class="nav">
+          <a href="joobseeker.html">Trang chủ</a>
+          <a href="#">Nhà tuyển dụng</a>
+          <a href="#">Ứng viên</a>
+        </nav>
+        <div class="auth">
+          <a class="link" href="dangnhap.html">Đăng nhập</a>
+          <a class="btn signup" href="dangky.html">Đăng ký</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="auth-page">
+      <div class="auth-card">
+        <h2>Tạo tài khoản mới</h2>
+        <p class="lead">
+          Tạo tài khoản để ứng tuyển, lưu tin tuyển dụng và nhận thông báo phù
+          hợp.
+        </p>
+
+        <form action="#" method="post" onsubmit="event.preventDefault();">
+          <div class="form-row">
+            <label for="fullname">Họ và tên</label>
+            <input
+              id="fullname"
+              name="fullname"
+              type="text"
+              placeholder="Nguyễn Văn A"
+              required
+            />
+          </div>
+
+          <div class="form-row">
+            <label for="email">Email</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="ban@vd.com"
+              required
+            />
+          </div>
+
+          <div class="form-row">
+            <label for="password">Mật khẩu</label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              placeholder="Ít nhất 8 ký tự"
+              required
+              minlength="8"
+            />
+          </div>
+
+          <div class="form-row">
+            <label for="location">Địa điểm</label>
+            <input
+              id="location"
+              name="location"
+              type="text"
+              placeholder="Hà Nội, TP. HCM,..."
+            />
+          </div>
+
+          <div class="auth-actions">
+            <button class="btn primary" type="submit">Đăng ký</button>
+            <a href="dangnhap.html" class="btn">Đã có tài khoản?</a>
+          </div>
+
+          <p class="auth-help">
+            Bằng việc tạo tài khoản bạn đồng ý với
+            <a href="#">Điều khoản & Chính sách</a>.
+          </p>
+        </form>
+      </div>
+    </main>
+
+    <div class="modal-backdrop" id="successModal">
+      <div class="modal-content">
+        <div class="modal-icon">✓</div>
+        <h2>Đăng ký thành công!</h2>
+        <p>
+          Tài khoản của bạn đã được tạo. Chuyển hướng sang trang đăng nhập...
+        </p>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const form = document.querySelector("form");
+        const modal = document.getElementById("successModal");
+
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          // Show success modal
+          modal.classList.add("show");
+          // Redirect after 2 seconds
+          setTimeout(() => {
+            window.location.href = "dangnhap.html";
+          }, 2000);
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Công ty nổi bật - Joobseeker</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Inter", sans-serif;
+        background: #f8fafc;
+        color: #1e293b;
+        line-height: 1.6;
+      }
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* Header - giống hệt trang chủ */
+      header {
+        background: linear-gradient(135deg, #c1530f 0%, #cc7a10 100%);
+        color: white;
+        padding: 1rem 0;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 10px 30px rgba(99, 102, 241, 0.2);
+      }
+      .header-inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .logo {
+        font-family: "Poppins", sans-serif;
+        font-size: 32px;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+        color: white;
+      }
+      .logo i {
+        font-size: 40px;
+        background: linear-gradient(135deg, #fbbf24, #f59e0b);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .nav-links a {
+        color: white;
+        text-decoration: none;
+        margin-left: 30px;
+        font-weight: 500;
+      }
+      .nav-links a:hover {
+        opacity: 0.8;
+      }
+      .btn-login {
+        background: rgba(255, 255, 255, 0.2);
+        padding: 10px 24px;
+        border-radius: 50px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+
+      /* Hero nhỏ cho trang công ty */
+      .page-hero {
+        background: linear-gradient(135deg, #e46d39 0%, #e15c38 100%);
+        color: white;
+        text-align: center;
+        padding: 100px 0 80px;
+      }
+      .page-hero h1 {
+        font-size: 48px;
+        font-weight: 800;
+        margin-bottom: 16px;
+      }
+      .page-hero p {
+        font-size: 20px;
+        max-width: 700px;
+        margin: 0 auto;
+        opacity: 0.95;
+      }
+
+      /* Bộ lọc công ty */
+      .filters {
+        padding: 40px 0;
+        background: white;
+        text-align: center;
+        border-bottom: 1px solid #e2e8f0;
+      }
+      .filter-buttons {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 15px;
+      }
+      .filter-btn {
+        background: #f1f5f9;
+        border: none;
+        padding: 12px 28px;
+        border-radius: 50px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s;
+      }
+      .filter-btn.active,
+      .filter-btn:hover {
+        background: #6366f1;
+        color: white;
+      }
+
+      /* Grid công ty */
+      .companies-section {
+        padding: 80px 0;
+      }
+      .companies-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+        gap: 32px;
+      }
+      .company-card {
+        background: white;
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        transition: all 0.4s;
+        border: 1px solid #f1f5f9;
+      }
+      .company-card:hover {
+        transform: translateY(-12px);
+        box-shadow: 0 20px 50px rgba(99, 102, 241, 0.2);
+      }
+      .company-header {
+        height: 140px;
+        background: linear-gradient(135deg, #e0e7ff, #c7d2fe);
+        padding: 24px;
+        position: relative;
+      }
+      .company-logo {
+        width: 100px;
+        height: 100px;
+        background: white;
+        border-radius: 20px;
+        padding: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        position: absolute;
+        bottom: -40px;
+        left: 24px;
+      }
+      .company-logo img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+      .company-body {
+        padding: 60px 24px 24px;
+      }
+      .company-name {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+      .company-location {
+        color: #64748b;
+        font-size: 15px;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .company-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 20px;
+      }
+      .tag {
+        background: #f0f4ff;
+        color: #6366f1;
+        padding: 6px 14px;
+        border-radius: 50px;
+        font-size: 13px;
+        font-weight: 600;
+      }
+      .company-stats {
+        display: flex;
+        justify-content: space-between;
+        padding-top: 20px;
+        border-top: 1px solid #e2e8f0;
+        color: #475569;
+      }
+      .stat-number {
+        font-weight: 700;
+        color: #1e293b;
+      }
+      .btn-view-jobs {
+        margin-top: 20px;
+        background: linear-gradient(135deg, #f59e0b, #f97316);
+        color: white;
+        width: 100%;
+        padding: 14px;
+        border: none;
+        border-radius: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+      .btn-view-jobs:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(249, 115, 22, 0.4);
+      }
+
+      /* Pagination */
+      .pagination {
+        text-align: center;
+        padding: 60px 0;
+      }
+      .pagination button {
+        background: none;
+        border: 1px solid #cbd5e1;
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        margin: 0 6px;
+        cursor: pointer;
+        font-weight: 600;
+      }
+      .pagination button.active {
+        background: #6366f1;
+        color: white;
+        border-color: #6366f1;
+      }
+
+      /* Footer - giống trang chủ */
+      footer {
+        background: #0f172a;
+        color: #94a3b8;
+        padding: 80px 0 40px;
+      }
+      .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 50px;
+        margin-bottom: 60px;
+      }
+      .footer-logo {
+        font-family: "Poppins", sans-serif;
+        font-size: 36px;
+        font-weight: 800;
+        color: white;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 20px;
+      }
+      .footer-logo i {
+        background: linear-gradient(135deg, #fbbf24, #f59e0b);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      footer h4 {
+        color: white;
+        margin-bottom: 20px;
+      }
+      footer a {
+        color: #94a3b8;
+        text-decoration: none;
+        display: block;
+        margin-bottom: 12px;
+      }
+      footer a:hover {
+        color: #fbbf24;
+      }
+      .copyright {
+        text-align: center;
+        padding-top: 40px;
+        border-top: 1px solid #1e293b;
+        color: #64748b;
+      }
+
+      @media (max-width: 768px) {
+        .page-hero h1 {
+          font-size: 38px;
+        }
+        .page-hero p {
+          font-size: 18px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="container header-inner">
+        <a href="./trangchinh.html" class="logo">
+          <i class="fas fa-briefcase"></i> Joobseeker
+        </a>
+        <div class="nav-links">
+          <a href="./vieclam.html">Việc làm</a>
+          <a href="#">Công ty</a>
+          <a href="./khoahoc.html">Khóa học</a>
+          <div
+
+            id="user-area"
+            style="
+              display: inline-block;
+              margin-left: 18px;
+              vertical-align: middle;
+            "
+          >
+            <a href="dangnhap_ungvien.html" class="btn-login">Đăng nhập</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+      <div class="container">
+        <h1>Công ty hàng đầu đang tuyển dụng</h1>
+        <p>Hơn 8.000 doanh nghiệp uy tín đang chờ đón bạn trên Joobseeker</p>
+      </div>
+    </section>
+
+    <!-- Filters -->
+    <section class="filters">
+      <div class="container">
+        <div class="filter-buttons">
+          <button class="filter-btn active">Tất cả công ty</button>
+          <button class="filter-btn">IT & Phần mềm</button>
+          <button class="filter-btn">Tài chính - Ngân hàng</button>
+          <button class="filter-btn">Sản xuất</button>
+          <button class="filter-btn">FMCG</button>
+          <button class="filter-btn">Startup</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Companies Grid -->
+    <section class="companies-section">
+      <div class="container">
+        <div class="companies-grid">
+          <!-- Công ty 1 -->
+          <div class="company-card">
+            <div class="company-header">
+              <div class="company-logo">
+                <img
+                  src="https://via.placeholder.com/150?text=FPT"
+                  alt="FPT Software"
+                />
+              </div>
+            </div>
+            <div class="company-body">
+              <h3 class="company-name">FPT Software</h3>
+              <p class="company-location">
+                <i class="fas fa-map-marker-alt"></i> Hà Nội & TP.HCM
+              </p>
+              <div class="company-tags">
+                <span class="tag">Top IT Việt Nam</span>
+                <span class="tag">Remote OK</span>
+                <span class="tag">Lương cao</span>
+              </div>
+              <div class="company-stats">
+                <div><span class="stat-number">286</span> việc làm</div>
+                <div><span class="stat-number">15k+</span> nhân viên</div>
+              </div>
+              <button class="btn-view-jobs">Xem việc làm</button>
+            </div>
+          </div>
+
+          <!-- Công ty 2 -->
+          <div class="company-card">
+            <div class="company-header">
+              <div class="company-logo">
+                <img src="https://via.placeholder.com/150?text=VNG" alt="VNG" />
+              </div>
+            </div>
+            <div class="company-body">
+              <h3 class="company-name">VNG Corporation</h3>
+              <p class="company-location">
+                <i class="fas fa-map-marker-alt"></i> TP. Hồ Chí Minh
+              </p>
+              <div class="company-tags">
+                <span class="tag">Game & Tech</span>
+                <span class="tag">Startup Culture</span>
+              </div>
+              <div class="company-stats">
+                <div><span class="stat-number">124</span> việc làm</div>
+                <div><span class="stat-number">3k+</span> nhân viên</div>
+              </div>
+              <button class="btn-view-jobs">Xem việc làm</button>
+            </div>
+          </div>
+
+          <!-- Công ty 3 -->
+          <div class="company-card">
+            <div class="company-header">
+              <div class="company-logo">
+                <img
+                  src="https://via.placeholder.com/150?text=Shopee"
+                  alt="Shopee"
+                />
+              </div>
+            </div>
+            <div class="company-body">
+              <h3 class="company-name">Shopee Việt Nam</h3>
+              <p class="company-location">
+                <i class="fas fa-map-marker-alt"></i> TP.HCM & Hà Nội
+              </p>
+              <div class="company-tags">
+                <span class="tag">E-commerce</span>
+                <span class="tag">Lương thưởng cao</span>
+              </div>
+              <div class="company-stats">
+                <div><span class="stat-number">198</span> việc làm</div>
+                <div><span class="stat-number">10k+</span> nhân viên</div>
+              </div>
+              <button class="btn-view-jobs">Xem việc làm</button>
+            </div>
+          </div>
+
+          <!-- Thêm bao nhiêu công ty cũng được, copy-paste card là xong -->
+          <!-- Công ty 4 -->
+          <div class="company-card">
+            <div class="company-header">
+              <div class="company-logo">
+                <img
+                  src="https://via.placeholder.com/150?text=Tiki"
+                  alt="Tiki"
+                />
+              </div>
+            </div>
+            <div class="company-body">
+              <h3 class="company-name">Tiki Corporation</h3>
+              <p class="company-location">
+                <i class="fas fa-map-marker-alt"></i> TP. Hồ Chí Minh
+              </p>
+              <div class="company-tags">
+                <span class="tag">E-commerce</span>
+                <span class="tag">Hybrid</span>
+              </div>
+              <div class="company-stats">
+                <div><span class="stat-number">89</span> việc làm</div>
+                <div><span class="stat-number">2k+</span> nhân viên</div>
+              </div>
+              <button class="btn-view-jobs">Xem việc làm</button>
+            </div>
+          </div>
+
+          <!-- Công ty 5, 6, 7... cứ thêm tiếp -->
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+          <button>«</button>
+          <button class="active">1</button>
+          <button>2</button>
+          <button>3</button>
+          <button>4</button>
+          <button>5</button>
+          <button>»</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-grid">
+          <div>
+            <div class="footer-logo">
+              <i class="fas fa-briefcase""></i> Joobseeker
+            </div>
+            <p>
+              Nền tảng tìm việc làm hàng đầu Việt Nam. Kết nối tài năng với cơ
+              hội.
+            </p>
+          </div>
+          <div>
+            <h4>Về chúng tôi</h4>
+            <a href=#">Giới thiệu</a>
+            <a href="#">Tuyển dụng</a>
+            <a href="#">Blog</a>
+            <a href="#">Liên hệ</a>
+          </div>
+          <div>
+            <h4>Dành cho nhà tuyển dụng</h4>
+            <a href="#">Đăng tin tuyển dụng</a>
+            <a href="#">Gói dịch vụ</a>
+            <a href="#">Hỗ trợ doanh nghiệp</a>
+          </div>
+          <div>
+            <h4>Theo dõi chúng tôi</h4>
+            <a href="#">Facebook</a>
+            <a href="#">LinkedIn</a>
+            <a href="#">Instagram</a>
+          </div>
+        </div>
+        <div class="copyright">
+          © 2025 Joobseeker. Tất cả quyền được bảo lưu.
+        </div>
+      </div>
+    </footer>
+    <script>
+      // Hiển thị tên người dùng ở header nếu đã đăng nhập (demo sử dụng localStorage)
+      (function () {
+        function safeText(text) {
+          var span = document.createElement("span");
+          span.textContent = text;
+          return span.textContent;
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+          try {
+            var userArea = document.getElementById("user-area");
+            if (!userArea) return;
+            var raw =
+              localStorage.getItem("currentUser") ||
+              localStorage.getItem("userAccount");
+            if (!raw) {
+              return;
+            }
+            var user = null;
+            try {
+              user = JSON.parse(raw);
+            } catch (e) {
+              user = null;
+            }
+            if (!user) return;
+
+            var displayName =
+              user.fullname || user.name || user.email || "Người dùng";
+
+            userArea.innerHTML = "";
+            var nameEl = document.createElement("a");
+            nameEl.href = "#";
+            nameEl.className = "btn-login";
+            nameEl.style.cursor = "default";
+            nameEl.style.padding = "10px 18px";
+            nameEl.style.borderRadius = "40px";
+            nameEl.style.background = "rgba(255,255,255,0.15)";
+            nameEl.style.border = "1px solid rgba(255,255,255,0.18)";
+            nameEl.textContent = safeText(displayName);
+
+            var logoutEl = document.createElement("a");
+            logoutEl.href = "#";
+            logoutEl.id = "logout-link";
+            logoutEl.textContent = "Đăng xuất";
+            logoutEl.style.marginLeft = "12px";
+            logoutEl.className = "btn-login";
+            logoutEl.style.background = "rgba(255,255,255,0.08)";
+
+            userArea.appendChild(nameEl);
+            userArea.appendChild(logoutEl);
+
+            logoutEl.addEventListener("click", function (e) {
+              e.preventDefault();
+              localStorage.removeItem("currentUser");
+              window.location.href = "dangnhap_ungvien.html";
+            });
+          } catch (err) {
+            console.error("User area script error", err);
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

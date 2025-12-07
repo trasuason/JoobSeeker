@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Joobseeker - Tìm Việc Làm Nhanh Chóng & Chất Lượng</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      
+      body {
+        font-family: "Inter", sans-serif;
+        background: #f8fafc;
+        color: #1e293b;
+        line-height: 1.6;
+      }
+
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* Header */
+      header {
+        background: linear-gradient(135deg, #d93b14 0%, #96562e 100%);
+        color: white;
+        padding: 1rem 0;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 10px 30px rgba(99, 102, 241, 0.2);
+      }
+
+      .header-inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-family: "Poppins", sans-serif;
+        font-size: 32px;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+        color: white;
+      }
+
+      .logo i {
+        font-size: 40px;
+        background: linear-gradient(135deg, #fbbf24, #f59e0b);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .nav-links a {
+        color: white;
+        text-decoration: none;
+        margin-left: 30px;
+        font-weight: 500;
+        transition: 0.3s;
+      }
+
+      .nav-links a:hover {
+        opacity: 0.8;
+      }
+
+      .btn-login {
+        background: rgba(255, 255, 255, 0.2);
+        padding: 10px 24px;
+        border-radius: 50px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+
+      /* Hero Section */
+      .hero {
+        background: linear-gradient(
+          135deg,
+          #dc5220 0%,
+          #e39f5f 50%,
+          #e84a4a 100%
+        );
+        color: white;
+        padding: 120px 0 80px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 300"><path d="M0,100 Q300,300 600,150 T1000,100 L1000,300 L0,300 Z" fill="rgba(255,255,255,0.1)"/></svg>')
+          center/cover no-repeat;
+        pointer-events: none;
+      }
+
+      .hero h1 {
+        font-size: 52px;
+        font-weight: 800;
+        margin-bottom: 20px;
+        line-height: 1.2;
+      }
+
+      .hero p {
+        font-size: 20px;
+        max-width: 700px;
+        margin: 0 auto 40px;
+        opacity: 0.95;
+      }
+
+      .search-box {
+        max-width: 800px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 60px;
+        padding: 12px;
+        display: flex;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        overflow: hidden;
+      }
+
+      .search-box input,
+      .search-box select {
+        border: none;
+        padding: 18px 20px;
+        font-size: 16px;
+        flex: 1;
+      }
+
+      .search-box input:focus,
+      .search-box select:focus {
+        outline: none;
+      }
+
+      .search-box button {
+        background: linear-gradient(135deg, #f59e0b, #f97316);
+        color: white;
+        border: none;
+        padding: 0 40px;
+        border-radius: 50px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      .search-box button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(249, 115, 22, 0.4);
+      }
+
+      /* Stats */
+      .stats {
+        display: flex;
+        justify-content: center;
+        gap: 60px;
+        margin-top: 60px;
+        flex-wrap: wrap;
+      }
+
+      .stat-item h3 {
+        font-size: 42px;
+        font-weight: 800;
+        color: #fbbf24;
+      }
+
+      .stat-item p {
+        font-size: 16px;
+        opacity: 0.9;
+      }
+
+      /* Danh mục việc làm */
+      .categories-section {
+        padding: 100px 0;
+        text-align: center;
+        background: white;
+      }
+
+      .section-title {
+        font-size: 42px;
+        margin-bottom: 20px;
+        color: #1e293b;
+      }
+
+      .section-subtitle {
+        font-size: 18px;
+        color: #64748b;
+        margin-bottom: 60px;
+      }
+
+      .categories-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+      }
+
+      .category-card {
+        background: white;
+        padding: 40px 30px;
+        border-radius: 24px;
+        text-align: center;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        transition: all 0.4s;
+        border: 1px solid #f1f5f9;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .category-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: linear-gradient(90deg, #6366f1, #8b5cf6);
+        transform: scaleX(0);
+        transition: 0.4s;
+      }
+
+      .category-card:hover::before {
+        transform: scaleX(1);
+      }
+
+      .category-card:hover {
+        transform: translateY(-15px);
+        box-shadow: 0 20px 50px rgba(99, 102, 241, 0.2);
+      }
+
+      .category-card i {
+        font-size: 48px;
+        margin-bottom: 24px;
+        background: linear-gradient(135deg, #6366f1, #8b5cf6);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .category-card h3 {
+        font-size: 22px;
+        margin-bottom: 12px;
+        color: #1e293b;
+      }
+
+      .category-card p {
+        color: #64748b;
+        font-weight: 500;
+      }
+
+      .jobs-count {
+        background: linear-gradient(135deg, #f59e0b, #f97316);
+        color: white;
+        padding: 8px 20px;
+        border-radius: 50px;
+        font-size: 14px;
+        margin-top: 16px;
+        display: inline-block;
+      }
+
+      /* Banner tuyển dụng nóng */
+      .hot-banner {
+        margin: 100px 0;
+        background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+        border-radius: 28px;
+        overflow: hidden;
+        position: relative;
+        color: white;
+        display: flex;
+        align-items: center;
+      }
+
+      .banner-content {
+        padding: 80px;
+        flex: 1;
+        z-index: 2;
+      }
+
+      .banner-content h2 {
+        font-size: 40px;
+        margin-bottom: 20px;
+      }
+
+      .banner-content ul {
+        margin: 30px 0;
+        padding-left: 10px;
+      }
+
+      .banner-content ul li {
+        margin-bottom: 12px;
+        padding-left: 10px;
+      }
+
+      .btn-apply-now {
+        background: #fbbf24;
+        color: #1e293b;
+        padding: 16px 40px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 18px;
+        display: inline-block;
+        box-shadow: 0 10px 30px rgba(251, 191, 36, 0.4);
+        transition: 0.3s;
+      }
+
+      .btn-apply-now:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(251, 191, 36, 0.5);
+      }
+
+      .banner-image {
+        flex: 1;
+        height: 500px;
+      }
+
+      .banner-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.9;
+      }
+
+      /* Footer */
+      footer {
+        background: #0f172a;
+        color: #94a3b8;
+        padding: 80px 0 40px;
+      }
+
+      .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 50px;
+        margin-bottom: 60px;
+      }
+
+      .footer-logo {
+        font-family: "Poppins", sans-serif;
+        font-size: 36px;
+        font-weight: 800;
+        color: white;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 20px;
+      }
+
+      .footer-logo i {
+        background: linear-gradient(135deg, #fbbf24, #f59e0b);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      footer h4 {
+        color: white;
+        margin-bottom: 20px;
+        font-size: 18px;
+      }
+
+      footer a {
+        color: #94a3b8;
+        text-decoration: none;
+        display: block;
+        margin-bottom: 12px;
+        transition: 0.3s;
+      }
+
+      footer a:hover {
+        color: #fbbf24;
+      }
+
+      .copyright {
+        text-align: center;
+        padding-top: 40px;
+        border-top: 1px solid #1e293b;
+        color: #64748b;
+      }
+
+      @media (max-width: 992px) {
+        .hot-banner {
+          flex-direction: column;
+          text-align: center;
+        }
+        .banner-image {
+          height: 300px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .hero h1 {
+          font-size: 40px;
+        }
+        .search-box {
+          flex-direction: column;
+        }
+        .search-box button {
+          padding: 16px;
+        }
+      }
+      
+      #joobseeker-aichat {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 9999;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* Nút mở chat */
+  .aichat-toggle {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, #ff6b35, #f7931e);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    cursor: pointer;
+    box-shadow: 0 12px 30px rgba(255, 107, 53, 0.4);
+    position: relative;
+    transition: all 0.3s;
+  }
+
+  .aichat-toggle:hover {
+    transform: scale(1.1);
+  }
+
+  .pulse-ring {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 107, 53, 0.3);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(0.9); opacity: 1; }
+    100% { transform: scale(1.8); opacity: 0; }
+  }
+
+  /* Panel chat */
+  .aichat-panel {
+    position: absolute;
+    right: 0;
+    bottom: 80px;
+    width: 380px;
+    height: 520px;
+    background: white;
+    border-radius: 24px;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.18);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  #joobseeker-aichat.open .aichat-panel {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .aichat-header {
+    background: linear-gradient(135deg, #ff6b35, #f7931e);
+    color: white;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    position: relative;
+  }
+
+  .ai-avatar {
+    width: 48px;
+    height: 48px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+  }
+
+  .close-chat {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .close-chat:hover {
+    background: rgba(255,255,255,0.2);
+  }
+
+  .aichat-body {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background: #f8f9fa;
+  }
+
+  .message {
+    margin-bottom: 16px;
+    max-width: 85%;
+  }
+
+  .message.bot {
+    align-self: flex-start;
+  }
+
+  .message.bot p {
+    background: white;
+    padding: 14px 18px;
+    border-radius: 18px 18px 18px 4px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    margin-bottom: 6px;
+  }
+
+  .message.bot small {
+    color: #94a3b8;
+    font-size: 12px;
+    margin-left: 18px;
+  }
+
+  .aichat-suggestions {
+    padding: 0 20px 16px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .suggest-btn {
+    background: #fff3e0;
+    color: #f97316;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 50px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  .suggest-btn:hover {
+    background: #f97316;
+    color: white;
+  }
+
+  .aichat-input {
+    padding: 20px;
+    background: white;
+    border-top: 1px solid #e2e8f0;
+    display: flex;
+    gap: 12px;
+  }
+
+  .aichat-input input {
+    flex: 1;
+    border: 2px solid #e2e8f0;
+    border-radius: 50px;
+    padding: 14px 20px;
+    font-size: 15px;
+  }
+
+  .aichat-input input:focus {
+    outline: none;
+    border-color: #f97316;
+  }
+
+  .aichat-input button {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #ff6b35, #f7931e);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+  }
+
+  /* Responsive */
+  @media (max-width: 480px) {
+    .aichat-panel {
+      width: 340px;
+      right: -20px;
+    }
+  }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="container header-inner">
+        <a href="#" class="logo">
+          <i class="fas fa-briefcase"></i>
+          Joobseeker
+        </a>
+        <div class="nav-links">
+          <a href="./vieclam.html">Việc làm</a>
+          <a href="./congty.html"">Công ty</a>
+          <a href="#">Khóa học</a>
+          <div
+            id="user-area"
+            style="
+              display: inline-block;
+              margin-left: 18px;
+              vertical-align: middle;
+            "
+          >
+            <a href="dangnhap_ungvien.html" class="btn-login">Đăng nhập</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <h1>Tìm việc mơ ước chỉ trong vài cú click</h1>
+        <p>
+          Hàng ngàn cơ hội việc làm chất lượng cao từ các công ty hàng đầu đang
+          chờ bạn
+        </p>
+
+        <div class="search-box">
+          <input
+            type="text"
+            placeholder="Vị trí mong muốn (VD: Designer, Developer...)"
+          />
+          <select>
+            <option>Hà Nội</option>
+            <option>TP. Hồ Chí Minh</option>
+            <option>Đà Nẵng</option>
+            <option>Toàn quốc</option>
+          </select>
+          <button><i class="fas fa-search"></i> Tìm việc ngay</button>
+        </div>
+
+        <div class="stats">
+          <div class="stat-item">
+            <h3>50,000+</h3>
+            <p>Việc làm đang tuyển</p>
+          </div>
+          <div class="stat-item">
+            <h3>8,000+</h3>
+            <p>Công ty uy tín</p>
+          </div>
+          <div class="stat-item">
+            <h3>2.5M+</h3>
+            <p>Ứng viên thành công</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Danh mục việc làm -->
+    <section class="categories-section">
+      <div class="container">
+        <h2 class="section-title">Khám phá ngành nghề hot nhất</h2>
+        <p class="section-subtitle">
+          Chọn lĩnh vực bạn yêu thích và bắt đầu hành trình sự nghiệp
+        </p>
+
+        <div class="categories-grid">
+          <div class="category-card">
+            <i class="fas fa-palette"></i>
+            <h3>UI/UX Design</h3>
+            <p>Sáng tạo giao diện người dùng đẹp mắt</p>
+            <div class="jobs-count">1,248 việc làm</div>
+          </div>
+          <div class="category-card">
+            <i class="fas fa-laptop-code"></i>
+            <h3>Lập trình Web</h3>
+            <p>Frontend, Backend, Fullstack</p>
+            <div class="jobs-count">2,156 việc làm</div>
+          </div>
+          <div class="category-card">
+            <i class="fas fa-bullhorn"></i>
+            <h3>Marketing</h3>
+            <p>Digital, Content, Performance</p>
+            <div class="jobs-count">1,890 việc làm</div>
+          </div>
+          <div class="category-card">
+            <i class="fas fa-chart-line"></i>
+            <h3>Kinh doanh & Sales</h3>
+            <p>B2B, B2C, Account Manager</p>
+            <div class="jobs-count">3,421 việc làm</div>
+          </div>
+          <div class="category-card">
+            <i class="fas fa-graduation-cap"></i>
+            <h3>Thực tập sinh</h3>
+            <p>Cơ hội cho sinh viên mới ra trường</p>
+            <div class="jobs-count">892 việc làm</div>
+          </div>
+          <div class="category-card">
+            <i class="fas fa-mobile-alt"></i>
+            <h3>Mobile Developer</h3>
+            <p>iOS, Android, React Native</p>
+            <div class="jobs-count">987 việc làm</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Banner tuyển dụng nóng -->
+    <section class="container">
+      <div class="hot-banner">
+        <div class="banner-content">
+          <h2>Đang tuyển gấp 500+ vị trí lương cao</h2>
+          <p>Ưu tiên ứng tuyển ngay hôm nay - Phỏng vấn trong 24h</p>
+          <ul>
+            <li>Lương từ 20 - 50 triệu</li>
+            <li>Remote / Hybrid linh hoạt</li>
+            <li>Thưởng hiệu suất cực hấp dẫn</li>
+            <li>Bảo hiểm full, du lịch hàng năm</li>
+          </ul>
+          <a href="#" class="btn-apply-now">Ứng tuyển ngay hôm nay</a>
+        </div>
+        <div class="banner-image">
+          <img
+            src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?q=80&w=1587&auto=format&fit=crop"
+            alt="Tuyển dụng"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-grid">
+          <div>
+            <div class="footer-logo">
+              <i class="fas fa-briefcase"></i>
+              Joobseeker
+            </div>
+            <p>
+              Nền tảng tìm việc làm hàng đầu Việt Nam. Kết nối tài năng với cơ
+              hội.
+            </p>
+          </div>
+          <div>
+            <h4>Về chúng tôi</h4>
+            <a href="#">Giới thiệu</a>
+            <a href="#">Tuyển dụng</a>
+            <a href="#">Blog</a>
+            <a href="#">Liên hệ</a>
+          </div>
+          <div>
+            <h4>Dành cho nhà tuyển dụng</h4>
+            <a href="#">Đăng tin tuyển dụng</a>
+            <a href="#">Gói dịch vụ</a>
+            <a href="#">Hỗ trợ doanh nghiệp</a>
+          </div>
+          <div>
+            <h4>Theo dõi chúng tôi</h4>
+            <a href="#">Facebook</a>
+            <a href="#">LinkedIn</a>
+            <a href="#">Instagram</a>
+            <a href="#">YouTube</a>
+          </div>
+        </div>
+        <div class="copyright">
+          © 2025 Joobseeker. Tất cả quyền được bảo lưu.
+        </div>
+      </div>
+    </footer>
+    <script>
+      // Hiển thị tên người dùng ở header nếu đã đăng nhập (demo sử dụng localStorage)
+      (function () {
+        function safeText(text) {
+          var span = document.createElement("span");
+          span.textContent = text;
+          return span.textContent;
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+          try {
+            var userArea = document.getElementById("user-area");
+            if (!userArea) return;
+            var raw =
+              localStorage.getItem("currentUser") ||
+              localStorage.getItem("userAccount");
+            if (!raw) {
+              // vẫn để link đăng nhập nếu chưa có user
+              return;
+            }
+            var user = null;
+            try {
+              user = JSON.parse(raw);
+            } catch (e) {
+              user = null;
+            }
+            if (!user) return;
+
+            // lấy tên hiển thị: ưu tiên fullname, fallback email
+            var displayName =
+              user.fullname || user.name || user.email || "Người dùng";
+
+            // tạo phần hiển thị tên + nút đăng xuất
+            userArea.innerHTML = "";
+            var nameEl = document.createElement("a");
+            nameEl.href = "#";
+            nameEl.className = "btn-login";
+            nameEl.style.cursor = "default";
+            nameEl.style.padding = "10px 18px";
+            nameEl.style.borderRadius = "40px";
+            nameEl.style.background = "rgba(255,255,255,0.15)";
+            nameEl.style.border = "1px solid rgba(255,255,255,0.18)";
+            nameEl.textContent = safeText(displayName);
+
+            var logoutEl = document.createElement("a");
+            logoutEl.href = "#";
+            logoutEl.id = "logout-link";
+            logoutEl.textContent = "Đăng xuất";
+            logoutEl.style.marginLeft = "12px";
+            logoutEl.className = "btn-login";
+            logoutEl.style.background = "rgba(255,255,255,0.08)";
+
+            userArea.appendChild(nameEl);
+            userArea.appendChild(logoutEl);
+
+            logoutEl.addEventListener("click", function (e) {
+              e.preventDefault();
+              localStorage.removeItem("currentUser");
+              // giữ userAccount cho đăng ký lại, nhưng có thể xóa nếu muốn
+              // localStorage.removeItem('userAccount');
+              window.location.href = "dangnhap_ungvien.html";
+            });
+          } catch (err) {
+            console.error("User area script error", err);
+          }
+        });
+      })();
+
+      document.addEventListener('DOMContentLoaded', function() {
+    const chatBox = document.getElementById('joobseeker-aichat');
+    const toggle = chatBox.querySelector('.aichat-toggle');
+    const panel = chatBox.querySelector('.aichat-panel');
+    const closeBtn = chatBox.querySelector('.close-chat');
+    const input = chatBox.querySelector('.aichat-input input');
+    const sendBtn = chatBox.querySelector('.aichat-input button');
+    const body = chatBox.querySelector('.aichat-body');
+
+    toggle.addEventListener('click', () => {
+      chatBox.classList.toggle('open');
+    });
+
+    closeBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      chatBox.classList.remove('open');
+    });
+
+    // Gửi tin nhắn
+    function sendMessage() {
+      const text = input.value.trim();
+      if (!text) return;
+
+      // Thêm tin nhắn người dùng
+      const userMsg = document.createElement('div');
+      userMsg.className = 'message user';
+      userMsg.innerHTML = `<p style="background:#ff6b35;color:white;border-radius:18px 18px 4px 18px;padding:14px 18px;float:right;clear:both;">${text}</p>`;
+      body.appendChild(userMsg);
+
+      input.value = '';
+      body.scrollTop = body.scrollHeight;
+
+      // Bot trả lời giả lập
+      setTimeout(() => {
+        const botMsg = document.createElement('div');
+        botMsg.className = 'message bot';
+        botMsg.innerHTML = `
+          <p>Cảm ơn bạn đã hỏi! Mình đang tìm giúp bạn việc làm phù hợp nhất đây... Một vài gợi ý hot hôm nay: Senior React (30-45tr), Product Designer (25-40tr) tại FPT, Shopee, VNG. Bạn muốn xem chi tiết không?</p>
+          <small>Vừa xong</small>
+        `;
+        body.appendChild(botMsg);
+        body.scrollTop = body.scrollHeight;
+      }, 1000);
+    }
+
+    sendBtn.addEventListener('click', sendMessage);
+    input.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') sendMessage();
+    });
+
+    // Gợi ý nhanh
+    document.querySelectorAll('.suggest-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        input.value = btn.textContent;
+        sendMessage();
+      });
+    });
+  });
+    </script>
+    <div id="joobseeker-aichat">
+  <div class="aichat-toggle">
+    <i class="fas fa-robot"></i>
+    <span class="pulse-ring"></span>
+  </div>
+
+  <div class="aichat-panel">
+    <div class="aichat-header">
+      <div class="ai-avatar">
+        <i class="fas fa-robot"></i>
+      </div>
+      <div>
+        <h4>Trợ lý AI Joobseeker</h4>
+        <small>Đang online • Trả lời trong <1 giây</small>
+      </div>
+      <button class="close-chat">×</button>
+    </div>
+
+    <div class="aichat-body">
+      <div class="message bot">
+        <p>Xin chào! Mình là trợ lý AI của Joobseeker</p>
+        <small>Mình có thể giúp bạn tìm việc, tư vấn CV, lương thưởng, phỏng vấn...</small>
+      </div>
+    </div>
+
+    <div class="aichat-suggestions">
+      <button class="suggest-btn">Gợi ý việc làm lương cao</button>
+      <button class="suggest-btn">Cách viết CV xin việc IT</button>
+      <button class="suggest-btn">Công ty nào đang tuyển gấp?</button>
+      <button class="suggest-btn">Lương Fresher bao nhiêu là tốt?</button>
+    </div>
+
+    <div class="aichat-input">
+      <input type="text" placeholder="Hỏi mình bất cứ điều gì..." autocomplete="off" />
+      <button><i class="fas fa-paper-plane"></i></button>
+    </div>
+  </div>
+</div>
+  </body>
+</html>

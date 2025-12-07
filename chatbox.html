@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tin nhắn - JoObs</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background: #f8f9fa; display: flex; height: 100vh; }
+
+        /* Sidebar trái - màu cam */
+        .sidebar {
+            width: 380px;
+            background: linear-gradient(135deg, #FF8C42, #F97316);
+            color: white;
+            display: flex;
+            flex-direction: column;
+        }
+        .sidebar-header {
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .sidebar-header h2 {
+            font-size: 22px;
+            font-weight: 700;
+        }
+        .search-bar {
+            padding: 0 20px 20px;
+        }
+        .search-bar input {
+            width: 100%;
+            padding: 12px 20px;
+            border-radius: 30px;
+            border: none;
+            font-size: 15px;
+        }
+.menu {
+    padding: 20px;
+    flex: 1;
+}
+        .menu-item {
+            padding: 14px 20px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: rgba(255,255,255,0.8);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .menu-item:hover, .menu-item.active {
+            background: rgba(255,255,255,0.2);
+            color: white;
+        }
+        .menu-item.active {
+            font-weight: 600;
+            background: rgba(255,255,255,0.25);
+        }
+        .menu-item i { font-size: 20px; }
+
+        /* Danh sách cuộc trò chuyện */
+        .conversations {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0 20px;
+        }
+        .conv-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .conv-item:hover { background: rgba(255,255,255,0.1); }
+        .conv-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #fff;
+            color: #FF5733;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .conv-info h4 {
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+        .conv-info p {
+            font-size: 14px;
+            opacity: 0.8;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 220px;
+        }
+        .conv-time {
+            font-size: 12px;
+            opacity: 0.7;
+        }
+        .unread {
+            background: #FF5733;
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: auto;
+        }
+
+        /* Khu vực chat chính */
+        .chat-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #fff;
+        }
+        .chat-header {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .chat-header .conv-avatar { width: 45px; height: 45px; }
+        .chat-header h3 {
+            font-size: 18px;
+        }
+        .chat-header p {
+            font-size: 14px;
+            color: #888;
+        }
+        .chat-messages {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+            background: #f8f9fa;
+        }
+        .message {
+            max-width: 65%;
+            margin-bottom: 25px;
+            display: flex;
+            gap: 12px;
+        }
+        .message.sent {
+            margin-left: auto;
+            flex-direction: row-reverse;
+        }
+        .message-bubble {
+            padding: 12px 18px;
+            border-radius: 20px;
+            line-height: 1.5;
+            font-size: 15px;
+        }
+        .message.received .message-bubble {
+            background: white;
+            border-bottom-left-radius: 4px;
+        }
+        .message.sent .message-bubble {
+            background: linear-gradient(135deg, #FF8C42, #F97316);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+        .message-time {
+            font-size: 12px;
+            color: #aaa;
+            margin-top: 6px;
+            text-align: right;
+        }
+        .chat-input-area {
+            padding: 20px;
+            background: white;
+            border-top: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .chat-input-area input {
+            flex: 1;
+            padding: 14px 20px;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            font-size: 15px;
+        }
+        .send-btn {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #FF8C42, #F97316);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .sidebar { width: 100%; position: fixed; height: 100%; z-index: 100; }
+            .chat-area { display: none; }
+            /* Có thể thêm nút back để chuyển qua lại */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar trái -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h2>JoObs</h2>
+            <i class="fas fa-bell"></i>
+        </div>
+        <div class="search-bar">
+            <input type="text" placeholder="Tìm kiếm ứng viên...">
+        </div>
+        <div class="menu">
+            <div class="menu-item"><i class="fas fa-tachometer-alt"></i> Dashboard</div>
+            <div class="menu-item active"><i class="fas fa-envelope"></i> Tin nhắn</div>
+            <div class="menu-item"><i class="fas fa-video"></i> Video Call</div>
+            <div class="menu-item"><i class="fas fa-users"></i> Ứng viên</div>
+            <div class="menu-item"><i class="fas fa-cog"></i> Cài đặt</div>
+        </div>
+
+        <div class="conversations">
+            <div class="conv-title" style="padding: 15px 20px; font-weight:600; opacity:0.9;">Tin nhắn gần đây</div>
+            
+            <div class="conv-item">
+                <div class="conv-avatar">DN</div>
+                <div class="conv-info">
+                    <h4>David Nguyễn</h4>
+                    <p>Dạ em gửi portfolio rồi ạ...</p>
+                </div>
+                <div class="conv-time">10:30</div>
+                <div class="unread">3</div>
+            </div>
+
+            <div class="conv-item">
+                <div class="conv-avatar">LT</div>
+                <div class="conv-info">
+                    <h4>Lan Trần</h4>
+                    <p>Em có kinh nghiệm 3 năm Figma...</p>
+                </div>
+                <div class="conv-time">09:15</div>
+            </div>
+
+            <div class="conv-item">
+                <div class="conv-avatar">HM</div>
+                <div class="conv-info">
+                    <h4>Huy Minh</h4>
+                    <p>Khi nào phỏng vấn ạ anh?</p>
+                </div>
+                <div class="conv-time">Hôm qua</div>
+                <div class="unread">1</div>
+            </div>
+            <!-- Thêm bao nhiêu cũng được -->
+        </div>
+    </div>
+
+    <!-- Khu chat chính -->
+    <div class="chat-area">
+        <div class="chat-header">
+            <div class="conv-avatar">DN</div>
+            <div>
+                <h3>David Nguyễn</h3>
+                <p>Ứng tuyển vị trí Senior UX Designer • Đang online</p>
+            </div>
+        </div>
+
+        <div class="chat-messages">
+            <div class="message received">
+                <div class="conv-avatar" style="width:40px;height:40px;">DN</div>
+                <div>
+                    <div class="message-bubble">Chào anh, em là David đây ạ. Em rất quan tâm vị trí Senior UX Designer tại Highspeed Studios.</div>
+                    <div class="message-time">10:25 AM</div>
+                </div>
+            </div>
+
+            <div class="message sent">
+                <div>
+                    <div class="message-bubble">Chào David! Anh đã xem CV của em, rất ấn tượng. Em có thể gửi portfolio mới nhất được không?</div>
+                    <div class="message-time">10:27 AM</div>
+                </div>
+            </div>
+
+            <div class="message received">
+                <div class="conv-avatar" style="width:40px;height:40px;">DN</div>
+                <div>
+                    <div class="message-bubble">Dạ đây ạ anh!<br><a href="#" style="color:#FF8C42;">Portfolio_David_2025.pdf</a></div>
+                    <div class="message-time">10:30 AM</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="chat-input-area">
+            <input type="text" placeholder="Soạn tin nhắn...">
+            <button class="send-btn"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+</body>
+</html>
